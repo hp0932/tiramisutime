@@ -26,7 +26,7 @@ public class CryptoUtil {
 
 	public static byte[] ivBytes = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-	private static String key = "chili2con2carne2";
+	private static String key = "beans2the2beans2";
 
 	public static String AES_Encode(String str)
 			throws java.io.UnsupportedEncodingException,
