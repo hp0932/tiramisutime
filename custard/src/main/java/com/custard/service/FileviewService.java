@@ -32,10 +32,12 @@ public class FileviewService {
 				}
 				if (info.isFile()) {
 					String fullName = ROUTE + "\\" + info.getName();
+					Long fileSize = info.length();
 					logger.debug(fullName);
 					Map fileInfo = new HashMap();
 					fileInfo.put("fileName", info.getName());
 					fileInfo.put("fullName", fullName);
+					fileInfo.put("fileSize", fileSizeMaker(fileSize));
 					fileList.add(fileInfo);
 				}
 			}
@@ -53,5 +55,33 @@ public class FileviewService {
 		return result;
 	}
 	
-	
+	public String fileSizeMaker(Long fileSize) {
+		int sizeChecker = 0;
+		String unit = "";
+		while(fileSize > 1024) {
+			fileSize = fileSize/(long) 1024;
+			sizeChecker++;
+			if(fileSize <  1024) {
+				break;
+			}else if (sizeChecker == 5) {
+				break;
+			}
+		}
+		//sizecheck의 의미 : 0-byte, 1-kb, 2-mb, 3-gb, 4-tb
+		if(sizeChecker == 0) {
+			unit = "Byte";
+		}else if (sizeChecker == 1) {
+			unit = "KB";
+		}else if (sizeChecker == 2) {
+			unit = "MB";
+		}else if (sizeChecker == 3) {
+			unit = "GB";
+		}else if (sizeChecker == 4) {
+			unit = "TB";
+		}else {
+			unit = "PB";
+		}
+		
+		return fileSize + unit;
+	}
 }

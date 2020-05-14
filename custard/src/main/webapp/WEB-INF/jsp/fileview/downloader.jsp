@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	console.log("${data}");
 });
 </script>
 <title>다운로더</title>
@@ -23,7 +23,7 @@ $(document).ready(function(){
 			<c:forEach items="${data.fileList}" var="result" varStatus="i">
 				<tr>
 					<td>
-						${result.fileName}
+						<div class="col-xs-8" style="border-right:1px dotted gray;">${result.fileName}</div><div class="col-xs-4">${result.fileSize}</div>
 					</td>
 				</tr>
 			</c:forEach>
