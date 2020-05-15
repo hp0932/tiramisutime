@@ -31,7 +31,7 @@ $(document).ready(function(){
 		location.href='/adminImg'
 	});
 	$('#downloader').click(function(){
-		location.href='/downloader'
+		location.href='/fileview/downloader'
 	});
 });
 </script>

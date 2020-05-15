@@ -13,6 +13,11 @@
 $(document).ready(function(){
 	console.log("${data}");
 });
+
+function download(fileName){
+	var down = "/fileview/download?fileName=" + fileName;
+	location.href=down;
+}
 </script>
 <title>다운로더</title>
 </head>
@@ -22,7 +27,7 @@ $(document).ready(function(){
 		<table class="table table-hover table-condensed" style="margin:0px;">
 			<c:forEach items="${data.fileList}" var="result" varStatus="i">
 				<tr>
-					<td>
+					<td onclick='download("${result.fileName}")'>
 						<div class="col-xs-8" style="border-right:1px dotted gray;">${result.fileName}</div><div class="col-xs-4">${result.fileSize}</div>
 					</td>
 				</tr>
