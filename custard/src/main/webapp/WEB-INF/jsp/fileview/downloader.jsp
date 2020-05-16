@@ -25,10 +25,18 @@ function download(fileName){
 <div class="container">
 	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px;">
 		<table class="table table-hover table-condensed" style="margin:0px;">
+			<c:forEach items="${data.folderList}" var="result" varStatus="i">
+				<tr>
+					<td onclick='download("${result.fileName}")' style="cursor:pointer;">
+						<div class="col-xs-12"><span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span></div>
+					</td>
+				</tr>
+			</c:forEach>
 			<c:forEach items="${data.fileList}" var="result" varStatus="i">
 				<tr>
-					<td onclick='download("${result.fileName}")'>
-						<div class="col-xs-8" style="border-right:1px dotted gray;">${result.fileName}</div><div class="col-xs-4">${result.fileSize}</div>
+					<td onclick='download("${result.fileName}")' style="cursor:pointer;">
+						<div class="col-xs-8" style="border-right:1px dotted gray;"><span class="glyphicon glyphicon-file" style="font-size:18px;"></span>&nbsp&nbsp<span>${result.fileName}</span></div>
+						<div class="col-xs-4">${result.fileSize}</div>
 					</td>
 				</tr>
 			</c:forEach>

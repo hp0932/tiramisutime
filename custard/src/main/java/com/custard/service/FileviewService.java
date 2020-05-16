@@ -37,12 +37,23 @@ public class FileviewService {
 		HashMap result = new HashMap();
 		
 		List fileList = new ArrayList();
+		List folderList = new ArrayList();
 		
 		try {
 			for (File info : new File(ROUTE).listFiles()) {
-				if (info.isDirectory()) {
-					logger.debug("dir : {}", info.getName());
+				//폴더리스트
+				if(info.isDirectory()) {
+					String fullName = ROUTE + "\\" + info.getName();
+					Long fileSize = info.length();
+					logger.debug(fullName);
+            		Map fileInfo = new HashMap();
+					fileInfo.put("fileName", info.getName());
+					fileInfo.put("fullName", fullName);
+					fileInfo.put("fileSize", fileSizeMaker(fileSize));
+					fileInfo.put("isFile", "folder");
+					folderList.add(fileInfo);
 				}
+				//파일리스트
 				if (info.isFile()) {
 					String fullName = ROUTE + "\\" + info.getName();
 					Long fileSize = info.length();
@@ -51,6 +62,7 @@ public class FileviewService {
 					fileInfo.put("fileName", info.getName());
 					fileInfo.put("fullName", fullName);
 					fileInfo.put("fileSize", fileSizeMaker(fileSize));
+					fileInfo.put("isFile", "file");
 					fileList.add(fileInfo);
 				}
 			}
@@ -65,6 +77,7 @@ public class FileviewService {
 		 */
         
 		result.put("fileList", fileList);
+		result.put("folderList", folderList);
 		return result;
 	}
 	
