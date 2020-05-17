@@ -36,6 +36,7 @@ public class FileviewService {
 	public Map getFileList() {
 		HashMap result = new HashMap();
 		
+		//파일리스트 및 폴더리스트
 		List fileList = new ArrayList();
 		List folderList = new ArrayList();
 		
@@ -43,10 +44,13 @@ public class FileviewService {
 			for (File info : new File(ROUTE).listFiles()) {
 				//폴더리스트
 				if(info.isDirectory()) {
+					//루트위치를 포함한 폴더명 제작
 					String fullName = ROUTE + "\\" + info.getName();
 					Long fileSize = info.length();
 					logger.debug(fullName);
             		Map fileInfo = new HashMap();
+            		
+            		//폴더명, 경로및폴더명, 파일사이즈(폴더이기에 0임), 폴더여부
 					fileInfo.put("fileName", info.getName());
 					fileInfo.put("fullName", fullName);
 					fileInfo.put("fileSize", fileSizeMaker(fileSize));
@@ -55,10 +59,13 @@ public class FileviewService {
 				}
 				//파일리스트
 				if (info.isFile()) {
+					//루트위치를 포함한 파일명 제작
 					String fullName = ROUTE + "\\" + info.getName();
 					Long fileSize = info.length();
 					logger.debug(fullName);
 					Map fileInfo = new HashMap();
+					
+					//파일명, 경로및파일명, 파일사이즈, 파일여부
 					fileInfo.put("fileName", info.getName());
 					fileInfo.put("fullName", fullName);
 					fileInfo.put("fileSize", fileSizeMaker(fileSize));
@@ -146,6 +153,11 @@ public class FileviewService {
 		}
 	}
 	
+	/**
+	 * 파일 사이즈 처리
+	 * @param fileSize
+	 * @return String 파일+사이즈
+	 */
 	public String fileSizeMaker(Long fileSize) {
 		int sizeChecker = 0;
 		String unit = "";

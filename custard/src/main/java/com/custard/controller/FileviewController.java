@@ -25,6 +25,13 @@ public class FileviewController {
 	@Autowired
 	private FileviewService fileviewService;
 
+	/**
+	 * 파일 다운로더 페이지 로드
+	 * @param request
+	 * @param params
+	 * @param map
+	 * @return 파일 다운로더 페이지
+	 */
 	@RequestMapping(value = "/downloader", method = RequestMethod.GET)
 	public String goDownloadPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
 		
