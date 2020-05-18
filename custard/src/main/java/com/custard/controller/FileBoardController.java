@@ -121,6 +121,11 @@ public class FileBoardController {
 		fileService.getFile(request, response);
 	}
 	
+	/**
+	 * 파일 삭제
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping(value = "fileDelete", method = RequestMethod.GET)
 	public void fileDelete(HttpServletRequest request, HttpServletResponse response) {
 		fileService.fileDelete(Long.parseLong(request.getParameter("fileId")));

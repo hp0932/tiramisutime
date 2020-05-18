@@ -100,6 +100,7 @@ public class BoardService {
 			result.put("boardList", boardList);
 			
 		}else {
+			//검색어가 없을 경우
 			int count = (int) boardRepo.count();
 			int pageCount = count/PAGE_SIZE;
 			int nowPage = request.getParameter("nowPage") == null ? 1 : Integer.parseInt(request.getParameter("nowPage").toString());

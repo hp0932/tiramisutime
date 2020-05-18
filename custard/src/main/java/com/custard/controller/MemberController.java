@@ -142,6 +142,13 @@ public class MemberController {
 		return "redirect:/member/admin";
 	}
 	
+	/**
+	 * 유저 레벨 변경
+	 * @param request
+	 * @param params
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping(value = "admin/userCommit")
 	public String setUserLevel(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
 		logger.debug("now id >>> {}", Long.parseLong(params.get("id").toString()));

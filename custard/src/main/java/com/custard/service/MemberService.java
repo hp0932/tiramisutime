@@ -67,7 +67,9 @@ public class MemberService {
 		MemberDto dto = insertDto(request, params);
 		logger.debug("user join dto >>> {}", dto);
 		
+		//유효성검사
 		try {
+			//아이디 중복검사
 			MemberDto idTest = modelMapper.map(memberRepo.findByUserId(dto.getUserId()), MemberDto.class);
 			logger.debug("id test >>> {}", idTest);
 			if(idTest != null) {
@@ -79,6 +81,7 @@ public class MemberService {
 			logger.debug("id test exception catch");
 		}
 		try {
+			//이름 중복검사
 			MemberDto nameTest = modelMapper.map(memberRepo.findByName(dto.getName()), MemberDto.class);
 			logger.debug("name test >>> {}", nameTest);
 			if(nameTest != null) {
@@ -90,6 +93,7 @@ public class MemberService {
 			logger.debug("name test exception catch");
 		}
 		try {
+			//이메일 중복검사
 			MemberDto emailTest = modelMapper.map(memberRepo.findByEmail(dto.getEmail()), MemberDto.class);
 			logger.debug("email test >>> {}", emailTest);
 			if(emailTest != null) {
