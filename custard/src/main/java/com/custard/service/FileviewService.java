@@ -33,19 +33,28 @@ public class FileviewService {
 	private static final Logger logger = LoggerFactory.getLogger(FileviewService.class);
 	private static final String ROUTE = "D:\\workshop";
 	
-	public Map getFileList() {
+	/**
+	 * 파일리스트 출력
+	 * @return
+	 */
+	public Map getFileList(String folder) {
 		HashMap result = new HashMap();
+		String userRoute = ROUTE + "\\" + folder;
+		result.put("selectFolder", folder);
+		
+		logger.debug("now route = {}", userRoute);
+		
 		
 		//파일리스트 및 폴더리스트
 		List fileList = new ArrayList();
 		List folderList = new ArrayList();
 		
 		try {
-			for (File info : new File(ROUTE).listFiles()) {
+			for (File info : new File(userRoute).listFiles()) {
 				//폴더리스트
 				if(info.isDirectory()) {
 					//루트위치를 포함한 폴더명 제작
-					String fullName = ROUTE + "\\" + info.getName();
+					String fullName = userRoute + "\\" + info.getName();
 					Long fileSize = info.length();
 					logger.debug(fullName);
             		Map fileInfo = new HashMap();
@@ -60,7 +69,7 @@ public class FileviewService {
 				//파일리스트
 				if (info.isFile()) {
 					//루트위치를 포함한 파일명 제작
-					String fullName = ROUTE + "\\" + info.getName();
+					String fullName = userRoute + "\\" + info.getName();
 					Long fileSize = info.length();
 					logger.debug(fullName);
 					Map fileInfo = new HashMap();

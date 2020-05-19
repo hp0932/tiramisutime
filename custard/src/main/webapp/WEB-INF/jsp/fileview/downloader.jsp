@@ -18,16 +18,22 @@ function download(fileName){
 	var down = "/fileview/download?fileName=" + fileName;
 	location.href=down;
 }
+
+function cdFolder(folder){
+	var down = "/fileview/downloader?folderName=" + folder;
+	location.href=down;
+}
 </script>
 <title>다운로더</title>
 </head>
 <body>
 <div class="container">
+	<div class="col-xs-12"><span>location : /${data.selectFolder}</span></div>
 	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px;">
 		<table class="table table-hover table-condensed" style="margin:0px;">
 			<c:forEach items="${data.folderList}" var="result" varStatus="i">
 				<tr>
-					<td onclick='download("${result.fileName}")' style="cursor:pointer;">
+					<td onclick='cdFolder("${result.fileName}")' style="cursor:pointer;">
 						<div class="col-xs-12"><span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span></div>
 					</td>
 				</tr>
