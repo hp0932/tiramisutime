@@ -36,14 +36,18 @@ public class FileviewController {
 	public String goDownloadPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
 		
 		String folder = request.getParameter("folderName");
+		String path = request.getParameter("path");
 		if(folder == null) {
 			folder = "";
 			logger.debug("fileview first load");
 		}else {
 			logger.debug("select folder >>> {}", folder);
 		}
+		if(path == null) {
+			path = "";
+		}
 		
-		Map data = fileviewService.getFileList(folder);
+		Map data = fileviewService.getFileList(path, folder);
 		
 		map.addAttribute("data", data);
 		

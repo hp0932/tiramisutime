@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	console.log("${data}");
+	
 });
 
 function download(fileName){
@@ -20,17 +20,26 @@ function download(fileName){
 }
 
 function cdFolder(folder){
-	var down = "/fileview/downloader?folderName=" + folder;
-	location.href=down;
+	var path = "${param.folderName}";
+	alert(path);
+	var cd = "/fileview/downloader?folderName=" + folder + "&path=" + path;
+	location.href=cd;
 }
 </script>
 <title>다운로더</title>
 </head>
 <body>
 <div class="container">
-	<div class="col-xs-12"><span>location : /${data.selectFolder}</span></div>
+	<div class="col-xs-12"><span>location : /${data.folder}</span></div>
 	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px;">
 		<table class="table table-hover table-condensed" style="margin:0px;">
+			<c:if test="${data.folder ne ''}">
+				<tr>
+					<td onclick='cdFolder("${data.path}")' style="cursor:pointer;">
+						<div class="col-xs-12"><span class="glyphicon glyphicon-level-up" style="font-size:19px;"></span>&nbsp&nbsp<span></span><span style="font-weight:bold;">..(${data.path})</span></div>
+					</td>
+				</tr>
+			</c:if>
 			<c:forEach items="${data.folderList}" var="result" varStatus="i">
 				<tr>
 					<td onclick='cdFolder("${result.fileName}")' style="cursor:pointer;">

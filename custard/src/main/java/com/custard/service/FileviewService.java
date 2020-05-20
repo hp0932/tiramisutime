@@ -37,12 +37,12 @@ public class FileviewService {
 	 * 파일리스트 출력
 	 * @return
 	 */
-	public Map getFileList(String folder) {
+	public Map getFileList(String path, String folder) {
 		HashMap result = new HashMap();
-		String userRoute = ROUTE + "\\" + folder;
-		result.put("selectFolder", folder);
+		String userRoute = ROUTE;
+		userRoute = userRoute + "/" + folder;
 		
-		logger.debug("now route = {}", userRoute);
+		logger.debug("now route >>> {}", userRoute);
 		
 		
 		//파일리스트 및 폴더리스트
@@ -54,7 +54,7 @@ public class FileviewService {
 				//폴더리스트
 				if(info.isDirectory()) {
 					//루트위치를 포함한 폴더명 제작
-					String fullName = userRoute + "\\" + info.getName();
+					String fullName = userRoute + "/" + info.getName();
 					Long fileSize = info.length();
 					logger.debug(fullName);
             		Map fileInfo = new HashMap();
@@ -69,7 +69,7 @@ public class FileviewService {
 				//파일리스트
 				if (info.isFile()) {
 					//루트위치를 포함한 파일명 제작
-					String fullName = userRoute + "\\" + info.getName();
+					String fullName = userRoute + "/" + info.getName();
 					Long fileSize = info.length();
 					logger.debug(fullName);
 					Map fileInfo = new HashMap();
@@ -92,6 +92,8 @@ public class FileviewService {
 		 * System.out.println(info.getName()); }
 		 */
         
+		result.put("path", path);
+		result.put("folder", folder);
 		result.put("fileList", fileList);
 		result.put("folderList", folderList);
 		return result;
