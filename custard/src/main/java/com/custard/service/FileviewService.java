@@ -40,8 +40,11 @@ public class FileviewService {
 	public Map getFileList(String path, String folder) {
 		HashMap result = new HashMap();
 		String userRoute = ROUTE;
+		if(!path.equals("")) {
+			userRoute = userRoute + "/" + path;
+		}
 		userRoute = userRoute + "/" + folder;
-		
+		logger.debug("now path >>> {} / now folder >>> {}", path, folder);
 		logger.debug("now route >>> {}", userRoute);
 		
 		
