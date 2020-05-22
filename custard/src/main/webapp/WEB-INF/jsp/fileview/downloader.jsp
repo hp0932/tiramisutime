@@ -42,9 +42,11 @@ function goHome(){
 </head>
 <body>
 <div class="container">
-	<div class="col-xs-8"><span>location : <c:if test="${data.path ne ''}">/${data.path}</c:if>/${data.folder}</span></div>
-	<div class="col-xs-4"><span onclick="goHome()" class="glyphicon glyphicon-eject pull-right" style="font-size:20px; cursor:pointer;"></span></div>
-	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px;">
+	<div class="col-xs-12" style="border:1px solid gray; height:31px; padding-top:3px; border-radius:5px; margin-bottom:3px;">
+		<div class="col-xs-8" style="border-right:1px dotted gray;"><span style="font-size:18px;">location : <c:if test="${data.path ne ''}">/${data.path}</c:if>/${data.folder}</span></div>
+		<div onclick="goHome()" class="col-xs-4" style="cursor:pointer;"><span class="glyphicon glyphicon-eject pull-right" style="font-size:20px;"></span><span style="font-size:18px;">홈으로</span></div>
+	</div>
+	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px; overflow-x:hidden;">
 		<table class="table table-hover table-condensed" style="margin:0px;">
 			<c:if test="${data.folder ne ''}">
 				<tr>
