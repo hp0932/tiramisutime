@@ -11,7 +11,10 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	$("#btnTorrent").click(function(){
+		$("#transmission").children().remove();
+		$("#transmission").contents().find("#toolbar").css('display', 'none');
+	});
 });
 
 function download(fileName){
@@ -36,6 +39,10 @@ function goBack(){
 
 function goHome(){
 	location.href="/fileview/downloader"
+}
+
+function makeToolbar(){
+	$("#transmission").get(0).contentDocument.find("#toolbar").remove();
 }
 </script>
 <title>다운로더</title>
@@ -73,12 +80,14 @@ function goHome(){
 			<tr><td></td></tr>
 		</table>
 	</div>
-	<%-- <div>
-		<c:forEach items="${data.fileList}" var="result" varStatus="i">
-			<div class="col-xs-2" style="height:65px; border:1px solid gray; border-radius: 10px; margin:2px;">${result.fileName}</div>
-		</c:forEach>
-	</div> --%>
-	<div class="col-xs-12" style="padding:0px;">
+	<div class="col-xs-12" style="margin-top:3px; margin-bottom:3px; padding:0px;">
+		<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>
+		<button id="btnTorrent" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#divTransmission" aria-expanded="false" aria-controls="divTransmission" onclick="makeToolbar()">
+			다운로드 진행상황
+		</button>
+	</div>
+	<div class="col-xs-12 collapse" id="divTransmission" style="padding:0px; margin-bottom:30px;">
+		<iframe id="transmission" height="500px" class="col-xs-12" src="http://localhost:8080/" style="padding:0px;"></iframe>
 	</div>
 </div>
 </body>
