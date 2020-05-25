@@ -11,17 +11,21 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	//토렌트 버튼 클릭시
 	$("#btnTorrent").click(function(){
+		//트랜스미션 iframe 페이지 내부 제어
 		$("#transmission").children().remove();
 		$("#transmission").contents().find("#toolbar").css('display', 'none');
 	});
 });
 
+//파일 다운로드
 function download(fileName){
 	var down = "/fileview/download?fileName=" + fileName;
 	location.href=down;
 }
 
+//폴더 진입
 function cdFolder(folder){
 	var path = "${param.path}";
 	if(path == ''){
@@ -33,10 +37,12 @@ function cdFolder(folder){
 	location.href=cd;
 }
 
+//돌아가기 버튼
 function goBack(){
 	window.history.back();
 }
 
+//홈으로 버튼
 function goHome(){
 	location.href="/fileview/downloader"
 }
