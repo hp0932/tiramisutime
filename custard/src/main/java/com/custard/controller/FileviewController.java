@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.custard.service.FileviewService;
 
@@ -52,6 +54,21 @@ public class FileviewController {
 		map.addAttribute("data", data);
 		
 		return "fileview/downloader";
+	}
+	
+	/**
+	 * 파일 업로드
+	 * @param request
+	 * @param params
+	 * @param map
+	 * @param session
+	 * @param mpfRequest
+	 */
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String setFile(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session, MultipartHttpServletRequest mpfRequest) {
+		fileviewService.setFile(mpfRequest.getFiles("attachFile"));
+		
+		return "redirect:/fileview/downloader";
 	}
 	
 	/**

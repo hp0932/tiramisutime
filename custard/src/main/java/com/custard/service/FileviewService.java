@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.custard.controller.FileviewController;
 import com.custard.dto.FileDto;
@@ -100,6 +102,30 @@ public class FileviewService {
 		result.put("fileList", fileList);
 		result.put("folderList", folderList);
 		return result;
+	}
+	
+	/**
+	 * 파일 업로드
+	 * @param fileThread
+	 * @param fileUploader
+	 * @param files
+	 */
+	public void setFile(List<MultipartFile> files) {
+		String uploadRoute = ROUTE + "/torrent/";
+		
+		logger.debug(">>> START FILE SAVE <<<");
+		for (int i = 0; i < files.size(); i++) {
+			MultipartFile file = files.get(i);
+			String fileName = file.getOriginalFilename();
+			Long fileSize = file.getSize();
+			logger.debug("name : {} / size : {}", fileName, fileSize);
+			try {
+				file.transferTo(new File(uploadRoute + fileName));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**

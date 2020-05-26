@@ -11,6 +11,15 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$(document).on('click','#btnUpTorrent',function(){
+	 	var data = $($(this).parents('form'));
+	 	
+	 	data.attr('method','POST');
+	 	data.attr('action',"<c:url value='/fileview/upload'/>");
+	 	data.submit();
+	});
+	
 	//토렌트 버튼 클릭시
 	$("#btnTorrent").click(function(){
 		//트랜스미션 iframe 페이지 내부 제어
@@ -86,14 +95,17 @@ function makeToolbar(){
 			<tr><td></td></tr>
 		</table>
 	</div>
-	<div class="col-xs-12" style="margin-top:3px; margin-bottom:3px; padding:0px;">
-		<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>
-		<button id="btnTorrent" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#divTransmission" aria-expanded="false" aria-controls="divTransmission" onclick="makeToolbar()">
+	<div class="col-xs-12 text-right" style="margin-top:3px; margin-bottom:3px; padding:0px;">
+		<form enctype="multipart/form-data" style="display:inline;">
+			<input type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/>
+			<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>
+		</form>
+		<button id="btnTorrent" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#divTransmission" aria-expanded="false" aria-controls="divTransmission" onclick="makeToolbar()" type="button">
 			다운로드 진행상황
 		</button>
 	</div>
 	<div class="col-xs-12 collapse" id="divTransmission" style="padding:0px; margin-bottom:30px;">
-		<iframe id="transmission" height="500px" class="col-xs-12" src="http://localhost:8080/" style="padding:0px;"></iframe>
+		<iframe id="transmission" height="500px" class="col-xs-12" src="http://tiramisutime.xyz:2291/transmission/web/" style="padding:0px;"></iframe>
 	</div>
 </div>
 </body>
