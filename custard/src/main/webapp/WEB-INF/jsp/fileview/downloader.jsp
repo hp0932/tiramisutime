@@ -7,11 +7,11 @@
 
 
 <style type="text/css">
+
 </style>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
 	$(document).on('click','#btnUpTorrent',function(){
 	 	var data = $($(this).parents('form'));
 	 	
@@ -56,9 +56,6 @@ function goHome(){
 	location.href="/fileview/downloader"
 }
 
-function makeToolbar(){
-	$("#transmission").get(0).contentDocument.find("#toolbar").remove();
-}
 </script>
 <title>다운로더</title>
 </head>
@@ -68,7 +65,7 @@ function makeToolbar(){
 		<div class="col-xs-8" style="border-right:1px dotted gray;"><span style="font-size:18px;">location : <c:if test="${data.path ne ''}">/${data.path}</c:if>/${data.folder}</span></div>
 		<div onclick="goHome()" class="col-xs-4" style="cursor:pointer;"><span class="glyphicon glyphicon-eject pull-right" style="font-size:20px;"></span><span style="font-size:18px;">홈으로</span></div>
 	</div>
-	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px; overflow-x:hidden;">
+	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px; overflow-x:hidden; z-index:4;  background-color:white;">
 		<table class="table table-hover table-condensed" style="margin:0px;">
 			<c:if test="${data.folder ne ''}">
 				<tr>
@@ -95,18 +92,19 @@ function makeToolbar(){
 			<tr><td></td></tr>
 		</table>
 	</div>
-	<div class="col-xs-12 text-right" style="margin-top:3px; margin-bottom:3px; padding:0px;">
+	<div class="col-xs-12 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3;  background-color:white;">
 		<form enctype="multipart/form-data" style="display:inline;">
-			<input type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/>
+			<label id="fileInputLabel" for="btnFileInput"><input id="btnFileInput" class="btn btn-default" type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/></label>
 			<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>
 		</form>
 		<button id="btnTorrent" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#divTransmission" aria-expanded="false" aria-controls="divTransmission" onclick="makeToolbar()" type="button">
 			다운로드 진행상황
 		</button>
 	</div>
-	<div class="col-xs-12 collapse" id="divTransmission" style="padding:0px; margin-bottom:30px;">
+	<div class="col-xs-12 collapse" id="divTransmission" style="height:400px; padding:0px; top:-68px; z-index:1;">
 		<iframe id="transmission" height="500px" class="col-xs-12" src="http://tiramisutime.xyz:2291/transmission/web/" style="padding:0px;"></iframe>
 	</div>
+	<div class="col-xs-12" style="height:25px; top:-92px; z-index:2; background-color:white;"></div>
 </div>
 </body>
 </html>
