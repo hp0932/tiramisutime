@@ -56,6 +56,28 @@ public class FileviewController {
 		return "fileview/downloader";
 	}
 	
+	@RequestMapping(value = "/upTorrent", method = RequestMethod.GET)
+	public String goTorrentPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
+		
+		String folder = request.getParameter("folderName");
+		String path = request.getParameter("path");
+		if(folder == null) {
+			folder = "";
+			logger.debug("fileview first load");
+		}else {
+			logger.debug("select folder >>> {}", folder);
+		}
+		if(path == null) {
+			path = "";
+		}
+		
+		Map data = fileviewService.getTorrentFileList(path, folder);
+		
+		map.addAttribute("data", data);
+		
+		return "fileview/downloader";
+	}
+	
 	/**
 	 * 파일 업로드
 	 * @param request

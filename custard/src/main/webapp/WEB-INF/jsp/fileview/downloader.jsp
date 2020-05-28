@@ -56,6 +56,11 @@ function goHome(){
 	location.href="/fileview/downloader"
 }
 
+//토렌트 업로드 폴더
+function goTorrentFolder(){
+	location.href="/fileview/upTorrent"
+}
+
 </script>
 <title>다운로더</title>
 </head>
@@ -92,7 +97,8 @@ function goHome(){
 			<tr><td></td></tr>
 		</table>
 	</div>
-	<div class="col-xs-12 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3;  background-color:white;">
+	<div class="col-xs-2" style="padding:3px 0px 0px 0px; z-index:3; height:47px; background-color:white;"><button id="torrentFolder" onclick="goTorrentFolder()" class="btn btn-default">업로드 폴더</button></div>
+	<div class="col-xs-10 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3; height:47px; background-color:white;">
 		<form enctype="multipart/form-data" style="display:inline;">
 			<label id="fileInputLabel" for="btnFileInput"><input id="btnFileInput" class="btn btn-default" type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/></label>
 			<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>

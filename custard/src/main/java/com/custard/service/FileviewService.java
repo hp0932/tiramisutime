@@ -34,6 +34,7 @@ public class FileviewService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FileviewService.class);
 	private static final String ROUTE = "D:\\workshop";
+	private static final String TORRENT_ROUTE = "D:\\workshop";
 	
 	/**
 	 * 파일리스트 출력
@@ -97,6 +98,74 @@ public class FileviewService {
 		 * System.out.println(info.getName()); }
 		 */
         
+		result.put("path", path);
+		result.put("folder", folder);
+		result.put("fileList", fileList);
+		result.put("folderList", folderList);
+		return result;
+	}
+	/**
+	 * 토렌트 파일리스트 출력
+	 * @return
+	 */
+	public Map getTorrentFileList(String path, String folder) {
+		HashMap result = new HashMap();
+		String userRoute = TORRENT_ROUTE;
+		if(!path.equals("")) {
+			userRoute = userRoute + "/" + path;
+		}
+		userRoute = userRoute + "/" + folder;
+		logger.debug("now path >>> {} / now folder >>> {}", path, folder);
+		logger.debug("now route >>> {}", userRoute);
+		
+		
+		//파일리스트 및 폴더리스트
+		List fileList = new ArrayList();
+		List folderList = new ArrayList();
+		
+		try {
+			for (File info : new File(userRoute).listFiles()) {
+				//폴더리스트
+				if(info.isDirectory()) {
+					//루트위치를 포함한 폴더명 제작
+					String fullName = userRoute + "/" + info.getName();
+					Long fileSize = info.length();
+					logger.debug(fullName);
+					Map fileInfo = new HashMap();
+					
+					//폴더명, 경로및폴더명, 파일사이즈(폴더이기에 0임), 폴더여부
+					fileInfo.put("fileName", info.getName());
+					fileInfo.put("fullName", fullName);
+					fileInfo.put("fileSize", fileSizeMaker(fileSize));
+					fileInfo.put("isFile", "folder");
+					folderList.add(fileInfo);
+				}
+				//파일리스트
+				if (info.isFile()) {
+					//루트위치를 포함한 파일명 제작
+					String fullName = userRoute + "/" + info.getName();
+					Long fileSize = info.length();
+					logger.debug(fullName);
+					Map fileInfo = new HashMap();
+					
+					//파일명, 경로및파일명, 파일사이즈, 파일여부
+					fileInfo.put("fileName", info.getName());
+					fileInfo.put("fullName", fullName);
+					fileInfo.put("fileSize", fileSizeMaker(fileSize));
+					fileInfo.put("isFile", "file");
+					fileList.add(fileInfo);
+				}
+			}
+		} catch (Exception e) {
+			logger.debug("하위 디렉토리 및 파일이 없습니다");
+		}
+		
+		/*
+		 * // 하위의 모든 파일 for (File info : FileUtils.listFiles(new File(ROUTE),
+		 * TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE)) {
+		 * System.out.println(info.getName()); }
+		 */
+		
 		result.put("path", path);
 		result.put("folder", folder);
 		result.put("fileList", fileList);
