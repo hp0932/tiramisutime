@@ -34,7 +34,7 @@ public class FileviewController {
 	 * @param map
 	 * @return 파일 다운로더 페이지
 	 */
-	@RequestMapping(value = "/downloader", method = RequestMethod.GET)
+	@RequestMapping(value = "/downloader", method = RequestMethod.POST)
 	public String goDownloadPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
 		
 		String folder = request.getParameter("folderName");
@@ -56,7 +56,8 @@ public class FileviewController {
 		return "fileview/downloader";
 	}
 	
-	@RequestMapping(value = "/upTorrent", method = RequestMethod.GET)
+	//토렌트 업로드 폴더 로드
+	@RequestMapping(value = "/upTorrent", method = RequestMethod.POST)
 	public String goTorrentPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
 		
 		String folder = request.getParameter("folderName");
@@ -98,7 +99,7 @@ public class FileviewController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	@RequestMapping(value = "/download", method = RequestMethod.POST)
 	public void getFile(HttpServletRequest request, HttpServletResponse response) {
 		fileviewService.getFile(request, response);
 	}

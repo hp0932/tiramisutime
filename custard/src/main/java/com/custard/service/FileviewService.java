@@ -209,11 +209,14 @@ public class FileviewService {
 		InputStream in = null;
 		OutputStream os = null;
 		String fileName = request.getParameter("fileName");
+		String originalName = "";
+		logger.debug("select file >>> {}", fileName);
 		
 		try {
 			try {
 				file = new File(ROUTE, fileName);
 				in = new FileInputStream(file);
+				originalName = file.getName();
 			} catch (FileNotFoundException e) {
 				logger.debug("§§§ file lost §§§");
 				lost = true;
@@ -223,17 +226,18 @@ public class FileviewService {
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-Description", "JSP Generated Data");
 			
+			logger.debug("client >>> {}", client);
 			//파일이 분실되지 않았다면
 			if(!lost) {
 				// IE
 				if(client.indexOf("MSIE") != -1){
-					response.setHeader ("Content-Disposition", "attachment; filename="+new String(fileName.getBytes("KSC5601"),"ISO8859_1"));
+					response.setHeader ("Content-Disposition", "attachment; filename="+new String(originalName.getBytes("KSC5601"),"ISO8859_1").replaceAll("\\+", "%20"));
 					
 				}else{
 					// 한글 파일명 처리
-					fileName = new String(fileName.getBytes("utf-8"),"iso-8859-1");
+					originalName = new String(originalName.getBytes("UTF-8"), "ISO-8859-1");
 					
-					response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+					response.setHeader("Content-Disposition", "attachment; filename=\"" + originalName + "\"");
 					response.setHeader("Content-Type", "application/octet-stream; charset=utf-8");
 				} 
 				
