@@ -76,7 +76,7 @@ function selectThread(select){
 		</table>
 		<input type="hidden" id="searchedContent" value="${param.searchContent}">
 		</div>
-		<div class="col-xs-12 text-center">
+		<div class="col-xs-12 text-center" style="margin-bottom:3px;">
 			<c:if test="${data.startPage ne 1}">
 				<button class="btn btn-default" onclick="selectPage('${data.startPage-10}')"><span class="glyphicon glyphicon-chevron-left"></span></button>
 			</c:if>

@@ -31,6 +31,7 @@ $(document).ready(function(){
 
 //파일 다운로드
 function download(fileName){
+	//패스가 없을 경우 폴더값을 가져와서 다운로드
 	var path = "${data.path}";
 	if(path == ''){
 		path = "${data.folder}";
@@ -100,7 +101,7 @@ function goTorrentFolder(){
 		<div class="col-xs-8" style="border-right:1px dotted gray; padding:0px; font-size: 18px; line-height:27px;">location : <c:if test="${data.path ne ''}">/${data.path}</c:if>/${data.folder}</div>
 		<div onclick="goHome()" class="col-xs-4" style="cursor:pointer;"><span class="glyphicon glyphicon-eject pull-right" style="font-size:20px;"></span><span style="font-size:18px;">홈으로</span></div>
 	</div>
-	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px; overflow-x:hidden; z-index:4;  background-color:white;">
+	<div class="col-xs-12" style="overflow:scroll; height:330px; border:1px solid gray; padding:0px; overflow-x:hidden; z-index:4; background-color:white;">
 		<table class="table table-hover table-condensed" style="margin:0px;">
 			<c:if test="${data.folder ne ''}">
 				<tr>
@@ -127,8 +128,8 @@ function goTorrentFolder(){
 			<tr><td></td></tr>
 		</table>
 	</div>
-	<div class="col-xs-2" style="padding:3px 0px 0px 0px; z-index:3; height:47px; background-color:white;"><button id="torrentFolder" onclick="goTorrentFolder()" class="btn btn-default">업로드 폴더</button></div>
-	<div class="col-xs-10 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3; height:47px; background-color:white;">
+	<div class="col-xs-2" style="padding:5px 0px 0px 0px; z-index:3; height:44px; background-color:white;"><button id="torrentFolder" onclick="goTorrentFolder()" class="btn btn-default">토렌트 업로드 폴더</button></div>
+	<div class="col-xs-10 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3; height:44px; background-color:white;">
 		<form enctype="multipart/form-data" style="display:inline;">
 			<label id="fileInputLabel" for="btnFileInput"><input id="btnFileInput" class="btn btn-default" type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/></label>
 			<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>
