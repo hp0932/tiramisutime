@@ -39,12 +39,15 @@ public class FileviewController {
 		
 		String folder = request.getParameter("folderName");
 		String path = request.getParameter("path");
+		//폴더값이 없을때 첫로드
 		if(folder == null) {
 			folder = "";
 			logger.debug("fileview first load");
 		}else {
+			//폴더값이 있다면 폴더값 출력
 			logger.debug("select folder >>> {}", folder);
 		}
+		//path값 널 안정용
 		if(path == null) {
 			path = "";
 		}

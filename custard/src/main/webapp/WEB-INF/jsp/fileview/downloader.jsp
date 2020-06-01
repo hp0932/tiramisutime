@@ -70,6 +70,7 @@ function cdFolder(folder){
 	data.attr('method','POST');
 	data.attr('action', "<c:url value='/fileview/downloader'/>");
 	
+	//form을 만들어서 input type hidden형식으로 추가하여 post형식으로 발송
 	data.append($('<input/>', {type: 'hidden', name: 'path', value: path}));
 	data.append($('<input/>', {type: 'hidden', name: 'folderName', value: folder}));
 	data.submit();
