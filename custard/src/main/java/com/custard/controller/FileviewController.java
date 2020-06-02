@@ -106,4 +106,14 @@ public class FileviewController {
 	public void getFile(HttpServletRequest request, HttpServletResponse response) {
 		fileviewService.getFile(request, response);
 	}
+	
+	/**
+	 * 파일 삭제
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public void deleteFile(HttpServletRequest request, HttpServletResponse response) {
+		fileviewService.deleteFile(request, response);
+	}
 }

@@ -267,6 +267,28 @@ public class FileviewService {
 	}
 	
 	/**
+	 * 파일 삭제
+	 * @param request
+	 * @param response
+	 */
+	public void deleteFile(HttpServletRequest request, HttpServletResponse response) {
+		String fileName = request.getParameter("fileName");
+		logger.debug("select file >>> {}", fileName);
+		
+		File file = new File(fileName);
+		
+		if(file.exists()) {
+			if(file.delete()) {
+				logger.debug("파일 삭제");
+			}else {
+				logger.debug("파일 삭제에 실패하였습니다.");
+			}
+		}else {
+			logger.debug("파일이 존재하지 않습니다.");
+		}
+	}
+	
+	/**
 	 * 파일 사이즈 처리
 	 * @param fileSize
 	 * @return String 파일+사이즈

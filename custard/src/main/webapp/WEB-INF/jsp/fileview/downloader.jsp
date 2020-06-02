@@ -55,6 +55,30 @@ function download(fileName){
 	//location.href=down;
 }
 
+//파일 삭제
+function fileDelete(fileName){
+	//패스가 없을 경우 폴더값을 가져와서 삭제
+	var path = "${data.path}";
+	if(path == ''){
+		path = "${data.folder}";
+	}else{
+		path = path + "/" + "${data.folder}";
+	}
+	if(path != ''){
+		fileName = path + "/" + fileName;
+	}
+	
+	var data = $('<form></form>');
+	//HTML5 표준 : document에 추가되지 않은 form의 submit은 중단
+	$('.container').append(data);
+	data.attr('name', 'folderForm');
+	data.attr('method','POST');
+	data.attr('action', "<c:url value='/fileview/delete'/>");
+	
+	data.append($('<input/>', {type: 'hidden', name: 'fileName', value: fileName}));
+	data.submit();
+}
+
 //폴더 진입
 function cdFolder(folder){
 	var path = "${param.path}";
