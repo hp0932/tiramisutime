@@ -7,7 +7,6 @@
 
 
 <style type="text/css">
-
 </style>
 
 <script type="text/javascript">
@@ -57,26 +56,28 @@ function download(fileName){
 
 //파일 삭제
 function fileDelete(fileName){
-	//패스가 없을 경우 폴더값을 가져와서 삭제
-	var path = "${data.path}";
-	if(path == ''){
-		path = "${data.folder}";
-	}else{
-		path = path + "/" + "${data.folder}";
+	if(confirm("파일 또는 폴더를 삭제하시겠습니까?")){
+		//패스가 없을 경우 폴더값을 가져와서 삭제
+		var path = "${data.path}";
+		if(path == ''){
+			path = "${data.folder}";
+		}else{
+			path = path + "/" + "${data.folder}";
+		}
+		if(path != ''){
+			fileName = path + "/" + fileName;
+		}
+		
+		var data = $('<form></form>');
+		//HTML5 표준 : document에 추가되지 않은 form의 submit은 중단
+		$('.container').append(data);
+		data.attr('name', 'folderForm');
+		data.attr('method','POST');
+		data.attr('action', "<c:url value='/fileview/delete'/>");
+		
+		data.append($('<input/>', {type: 'hidden', name: 'fileName', value: fileName}));
+		data.submit();
 	}
-	if(path != ''){
-		fileName = path + "/" + fileName;
-	}
-	
-	var data = $('<form></form>');
-	//HTML5 표준 : document에 추가되지 않은 form의 submit은 중단
-	$('.container').append(data);
-	data.attr('name', 'folderForm');
-	data.attr('method','POST');
-	data.attr('action', "<c:url value='/fileview/delete'/>");
-	
-	data.append($('<input/>', {type: 'hidden', name: 'fileName', value: fileName}));
-	data.submit();
 }
 
 //폴더 진입
@@ -131,22 +132,34 @@ function goTorrentFolder(){
 			<c:if test="${data.folder ne ''}">
 				<tr>
 					<td onclick='goBack()' style="cursor:pointer;">
-						<div class="col-xs-12"><span class="glyphicon glyphicon-level-up" style="font-size:19px;"></span>&nbsp&nbsp<span></span><span style="font-weight:bold;">..</span></div>
+						<div class="col-xs-12">
+							<span class="glyphicon glyphicon-level-up" style="font-size:19px;"></span>&nbsp&nbsp<span></span><span style="font-weight:bold;">..</span>
+						</div>
 					</td>
 				</tr>
 			</c:if>
 			<c:forEach items="${data.folderList}" var="result" varStatus="i">
 				<tr>
-					<td onclick='cdFolder("${result.fileName}")' style="cursor:pointer;">
-						<div class="col-xs-12"><span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span></div>
+					<td style="padding:0px;">
+						<div class="col-xs-11" style="cursor:pointer; padding:5px 15px 5px 15px;" onclick='cdFolder("${result.fileName}")'>
+							<span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
+						</div>
+						<div class="col-xs-1 text-right" style="padding:4px 15px 3px 15px;"><button class="btn btn-danger" style="padding:3px 6px 1px 6px;" onclick="fileDelete('${result.fileName}')">
+							<span class="glyphicon glyphicon-trash" style="font-size:14px;"></span></button>
+						</div>
 					</td>
 				</tr>
 			</c:forEach>
 			<c:forEach items="${data.fileList}" var="result" varStatus="i">
 				<tr>
-					<td onclick='download("${result.fileName}")' style="cursor:pointer;">
-						<div class="col-xs-8" style="border-right:1px dotted gray;"><span class="glyphicon glyphicon-file" style="font-size:18px;"></span>&nbsp&nbsp<span>${result.fileName}</span></div>
-						<div class="col-xs-4">${result.fileSize}</div>
+					<td style="padding:0px;">
+						<div onclick='download("${result.fileName}")' class="col-xs-8" style="border-right:1px dotted gray; cursor:pointer; padding:5px 15px 5px 15px;">
+							<span class="glyphicon glyphicon-file" style="font-size:18px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
+						</div>
+						<div class="col-xs-3" style="padding:5px 15px 5px 15px;">${result.fileSize}</div>
+						<div class="col-xs-1 text-right" style="padding:4px 15px 3px 15px;">
+							<button class="btn btn-danger" style="padding:3px 6px 1px 6px;" onclick="fileDelete('${result.fileName}')"><span class="glyphicon glyphicon-trash" style="font-size:14px;"></span></button>
+						</div>
 					</td>
 				</tr>
 			</c:forEach>

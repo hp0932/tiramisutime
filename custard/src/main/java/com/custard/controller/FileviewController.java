@@ -113,7 +113,9 @@ public class FileviewController {
 	 * @param response
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public void deleteFile(HttpServletRequest request, HttpServletResponse response) {
+	public String deleteFile(HttpServletRequest request, HttpServletResponse response) {
 		fileviewService.deleteFile(request, response);
+		
+		return "redirect:/fileview/downloader";
 	}
 }

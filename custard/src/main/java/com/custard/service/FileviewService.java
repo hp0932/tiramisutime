@@ -180,16 +180,22 @@ public class FileviewService {
 	 * @param files
 	 */
 	public void setFile(List<MultipartFile> files) {
-		String uploadRoute = ROUTE + "/torrent/";
+		String uploadRoute = TORRENT_ROUTE + "/";
 		
 		logger.debug(">>> START FILE SAVE <<<");
 		for (int i = 0; i < files.size(); i++) {
 			MultipartFile file = files.get(i);
 			String fileName = file.getOriginalFilename();
 			Long fileSize = file.getSize();
+			
 			logger.debug("name : {} / size : {}", fileName, fileSize);
+			logger.debug("upload route >>> {}", uploadRoute + fileName);
 			try {
-				file.transferTo(new File(uploadRoute + fileName));
+				File nFile = new File(uploadRoute + fileName);
+				file.transferTo(nFile);
+				nFile.setExecutable(true, false);
+				nFile.setReadable(true, false);
+				nFile.setWritable(true, false);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -275,7 +281,7 @@ public class FileviewService {
 		String fileName = request.getParameter("fileName");
 		logger.debug("select file >>> {}", fileName);
 		
-		File file = new File(fileName);
+		File file = new File(ROUTE, fileName);
 		
 		if(file.exists()) {
 			if(file.delete()) {
