@@ -98,13 +98,23 @@ public class FileviewController {
 	}
 	
 	/**
+	 * 폴더 다운로드
+	 * @param request
+	 * @param response
+	 */
+	public void getFiles(HttpServletRequest request, HttpServletResponse response) {
+		String folderName = request.getParameter("folderName");
+	}
+	
+	/**
 	 * 파일 다운로드
 	 * @param request
 	 * @param response
 	 */
 	@RequestMapping(value = "/download", method = RequestMethod.POST)
 	public void getFile(HttpServletRequest request, HttpServletResponse response) {
-		fileviewService.getFile(request, response);
+		String fileName = request.getParameter("fileName");
+		fileviewService.getFile(request, response, fileName);
 	}
 	
 	/**

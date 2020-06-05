@@ -1,8 +1,10 @@
 package com.custard.service;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.modelmapper.ModelMapper;
@@ -211,13 +214,12 @@ public class FileviewService {
 	 * @param request
 	 * @param response
 	 */
-	public void getFile(HttpServletRequest request, HttpServletResponse response) {
+	public void getFile(HttpServletRequest request, HttpServletResponse response, String fileName) {
 
 		boolean lost = false;
 		File file = null;
 		InputStream in = null;
 		OutputStream os = null;
-		String fileName = request.getParameter("fileName");
 		String originalName = "";
 		logger.debug("select file >>> {}", fileName);
 
@@ -273,7 +275,7 @@ public class FileviewService {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * 파일 삭제
 	 * 
@@ -298,6 +300,34 @@ public class FileviewService {
 			}
 		} else {
 			logger.debug("파일이 존재하지 않습니다.");
+		}
+	}
+	
+	/**
+	 * 폴더 다운로드 재귀함수
+	 * @param request
+	 * @param response
+	 */
+	public void getFiles(HttpServletRequest request, HttpServletResponse response, String folderName) {
+		File folder = new File(ROUTE, folderName);
+		try {
+			if(folder.exists()) {
+				//파일리스트 호출
+				File[] fileList = folder.listFiles();
+				
+				//리스트 갯수만큼 다운로드
+				for (int i = 0; i < fileList.length; i++) {
+					if(fileList[i].isFile()) {
+						//파일일 경우 다운로드
+						getFile(request, response, fileList[i].getName());
+					}else {
+						//폴더일 경우 자기 자신을 다시 호출
+						getFiles(request, response, fileList[i].getName());
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 	
