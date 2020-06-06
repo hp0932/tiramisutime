@@ -308,27 +308,30 @@ public class FileviewService {
 	 * @param request
 	 * @param response
 	 */
-	public void getFiles(HttpServletRequest request, HttpServletResponse response, String folderName) {
+	public int getFiles(HttpServletRequest request, HttpServletResponse response, String folderName, int counter) {
 		File folder = new File(ROUTE, folderName);
+		logger.debug("파일 다운로드 >>> {}", folderName);
 		try {
 			if(folder.exists()) {
 				//파일리스트 호출
 				File[] fileList = folder.listFiles();
 				
 				//리스트 갯수만큼 다운로드
-				for (int i = 0; i < fileList.length; i++) {
-					if(fileList[i].isFile()) {
-						//파일일 경우 다운로드
-						getFile(request, response, fileList[i].getName());
-					}else {
-						//폴더일 경우 자기 자신을 다시 호출
-						getFiles(request, response, fileList[i].getName());
-					}
+				if(fileList[counter].isFile()) {
+					//파일일 경우 다운로드
+					getFile(request, response, folderName + "/" + fileList[counter].getName());
+				}else {
+					//폴더일 경우 자기 자신을 다시 호출
+					//getFiles(request, response, fileList[i].getName());
+				}
+				if(counter == fileList.length) {
+					counter = -1;
 				}
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		return counter;
 	}
 	
 	/**
