@@ -66,6 +66,7 @@ function dirDown(folderName, counter){
 	if(path != ''){
 		folderName = path + "/" + folderName;
 	}
+	//success일 경우 배열값 추가하여 재실행
 	$.ajax({
 		url : "<c:url value='/fileview/dirdown'/>",
 		type : "POST",
@@ -74,6 +75,7 @@ function dirDown(folderName, counter){
 			'counter'    : counter
 		},
 		success : function(result){
+			//-1일경우 배열이 끝난 상태이므로 재실행하지 않음
 			if(result != -1){
 				dirDown(folderName, result);
 			}

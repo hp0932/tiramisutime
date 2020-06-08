@@ -324,6 +324,7 @@ public class FileviewService {
 					//폴더일 경우 자기 자신을 다시 호출
 					//getFiles(request, response, fileList[i].getName());
 				}
+				//배열값 마지막에 도달할 경우 -1로 재실행 방지
 				if(counter == fileList.length) {
 					counter = -1;
 				}
