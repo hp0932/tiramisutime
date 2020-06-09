@@ -55,7 +55,7 @@ function download(fileName){
 }
 
 //폴더 다운로드
-function dirDown(folderName, counter){
+function dirDown(folderName){
 	//패스가 없을 경우 폴더값을 가져와서 다운로드
 	var path = "${data.path}";
 	if(path == ''){
@@ -66,48 +66,28 @@ function dirDown(folderName, counter){
 	if(path != ''){
 		folderName = path + "/" + folderName;
 	}
-	//success일 경우 배열값 추가하여 재실행
+	//해당 폴더 내부의 파일 갯수가 몇개인지 가져옴(list length)
 	$.ajax({
-		url : "<c:url value='/fileview/dirdown'/>",
+		url : "<c:url value='/fileview/count'/>",
 		type : "POST",
 		data : {
-			'folderName' : folderName,
-			'counter'    : counter
+			'folderName' : folderName
 		},
 		success : function(result){
-			//-1일경우 배열이 끝난 상태이므로 재실행하지 않음
-			if(result != -1){
-				dirDown(folderName, result);
+			for (var i = 0; i < result; i++) {
+				getDir(folderName, i);
 			}
 		}
 	});
 }
 
-//폴더 다운로드
-/* function dirDown(folderName){
-	//패스가 없을 경우 폴더값을 가져와서 다운로드
-	var path = "${data.path}";
-	if(path == ''){
-		path = "${data.folder}";
-	}else{
-		path = path + "/" + "${data.folder}";
-	}
-	if(path != ''){
-		folderName = path + "/" + folderName;
-	}
-	
-	var data = $('<form></form>');
-	//HTML5 표준 : document에 추가되지 않은 form의 submit은 중단
-	$('.container').append(data);
-	data.attr('name', 'folderForm');
-	data.attr('method','POST');
-	data.attr('action', "<c:url value='/fileview/dirdown'/>");
-	
-	data.append($('<input/>', {type: 'hidden', name: 'folderName', value: folderName}));
-	data.submit();
-	//var down = "/fileview/download?fileName=" + fileName;
-	//location.href=down;
-} */
+//폴더 다운로드 실행
+function getDir(folderName, count){
+	var url = '/fileview/dirDown?folderName=' + folderName + '&count=' + count;
+	var frame = $('<iframe name="' + count + '" style="display: none;"></iframe>');
+	frame.appendTo("body");
+	$("iframe[name=" + count + "]").attr("src", url);
+}
 
 //파일 삭제
 function fileDelete(fileName){
@@ -200,10 +180,12 @@ function goTorrentFolder(){
 							<span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
 						</div>
 						<div class="col-xs-1 text-right" style="padding:4px 0px 3px 15px;">
-							<button class="btn btn-primary" style="padding:3px 7px 1px 6px;" onclick="dirDown('${result.fileName}', '0')"><span class="glyphicon glyphicon-download-alt" style="font-size:14px;"></span></button>
+							<!-- 폴더 다운로드 -->
+							<button class="btn btn-primary" style="padding:3px 7px 1px 6px;" onclick="dirDown('${result.fileName}')"><span class="glyphicon glyphicon-download-alt" style="font-size:14px;"></span></button>
 						</div>
 						<div class="col-xs-1 text-right" style="padding:4px 15px 3px 0px;">
-						<button class="btn btn-danger" style="padding:3px 6px 1px 6px;" onclick="fileDelete('${result.fileName}')"><span class="glyphicon glyphicon-trash" style="font-size:14px;"></span></button>
+							<!-- 폴더 삭제 -->
+							<button class="btn btn-danger" style="padding:3px 6px 1px 6px;" onclick="fileDelete('${result.fileName}')"><span class="glyphicon glyphicon-trash" style="font-size:14px;"></span></button>
 						</div>
 					</td>
 				</tr>

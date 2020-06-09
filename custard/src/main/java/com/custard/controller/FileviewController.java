@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.custard.service.FileviewService;
@@ -98,17 +99,30 @@ public class FileviewController {
 	}
 	
 	/**
-	 * 폴더 다운로드
+	 * 폴더 리스트 카운터
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value = "/dirdown", method = RequestMethod.POST)
-	public int getFiles(HttpServletRequest request, HttpServletResponse response) {
+	@ResponseBody
+	@RequestMapping(value = "/count", method = RequestMethod.POST)
+	public int getFilesCount(HttpServletRequest request, HttpServletResponse response) {
 		String folderName = request.getParameter("folderName");
-		int counter = Integer.parseInt(request.getParameter("counter").toString());
-		counter = fileviewService.getFiles(request, response, folderName, counter);
+		int count = fileviewService.getFilesCount(request, response, folderName);
 		
-		return counter;
+		return count;
+	}
+	
+	/**
+	 * 폴더 다운로더
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value = "/dirDown", method = RequestMethod.GET)
+	public void getFiles(HttpServletRequest request, HttpServletResponse response) {
+		String folderName = request.getParameter("folderName");
+		String count = request.getParameter("count");
+		logger.debug("folder & count >>> {} / {}", folderName, count);
+		fileviewService.getFiles(request, response, folderName, Integer.parseInt(count));
 	}
 	
 	/**

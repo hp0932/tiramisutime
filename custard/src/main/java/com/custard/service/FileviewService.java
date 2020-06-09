@@ -304,35 +304,46 @@ public class FileviewService {
 	}
 	
 	/**
-	 * 폴더 다운로드 재귀함수
+	 * 폴더 다운로드 카운터
 	 * @param request
 	 * @param response
 	 */
-	public int getFiles(HttpServletRequest request, HttpServletResponse response, String folderName, int counter) {
+	public int getFilesCount(HttpServletRequest request, HttpServletResponse response, String folderName) {
 		File folder = new File(ROUTE, folderName);
+		int count = 0;
 		logger.debug("파일 다운로드 >>> {}", folderName);
 		try {
 			if(folder.exists()) {
 				//파일리스트 호출
 				File[] fileList = folder.listFiles();
-				
-				//리스트 갯수만큼 다운로드
-				if(fileList[counter].isFile()) {
-					//파일일 경우 다운로드
-					getFile(request, response, folderName + "/" + fileList[counter].getName());
-				}else {
-					//폴더일 경우 자기 자신을 다시 호출
-					//getFiles(request, response, fileList[i].getName());
-				}
-				//배열값 마지막에 도달할 경우 -1로 재실행 방지
-				if(counter == fileList.length) {
-					counter = -1;
-				}
+				count = fileList.length;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return counter;
+		return count;
+	}
+	
+	/**
+	 * 폴더 다운로드
+	 * @param request
+	 * @param response
+	 * @param folderName
+	 * @param Counter
+	 */
+	public void getFiles(HttpServletRequest request, HttpServletResponse response, String folderName, int count) {
+		File folder = new File(ROUTE, folderName);
+		String fileName = folderName;
+		
+		try {
+			if(folder.exists()) {
+				File[] fileList = folder.listFiles();
+				fileName = fileName + "/" + fileList[count].getName();
+				getFile(request, response, fileName);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
