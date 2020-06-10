@@ -36,28 +36,33 @@ public class FileviewController {
 	 * @return 파일 다운로더 페이지
 	 */
 	@RequestMapping(value = "/downloader", method = RequestMethod.POST)
-	public String goDownloadPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
+	public String goDownloadPage(HttpServletRequest request, @RequestParam Map params, ModelMap map, HttpSession session) {
 		
-		String folder = request.getParameter("folderName");
-		String path = request.getParameter("path");
-		//폴더값이 없을때 첫로드
-		if(folder == null) {
-			folder = "";
-			logger.debug("fileview first load");
+		if(session.getAttribute("level") == null || session.getAttribute("level").equals("1")) {
+			logger.debug("user level >>> {}", session.getAttribute("level"));
+			return "redirect:/";
 		}else {
-			//폴더값이 있다면 폴더값 출력
-			logger.debug("select folder >>> {}", folder);
+			String folder = request.getParameter("folderName");
+			String path = request.getParameter("path");
+			//폴더값이 없을때 첫로드
+			if(folder == null) {
+				folder = "";
+				logger.debug("fileview first load");
+			}else {
+				//폴더값이 있다면 폴더값 출력
+				logger.debug("select folder >>> {}", folder);
+			}
+			//path값 널 안정용
+			if(path == null) {
+				path = "";
+			}
+			
+			Map data = fileviewService.getFileList(path, folder);
+			
+			map.addAttribute("data", data);
+			
+			return "fileview/downloader";
 		}
-		//path값 널 안정용
-		if(path == null) {
-			path = "";
-		}
-		
-		Map data = fileviewService.getFileList(path, folder);
-		
-		map.addAttribute("data", data);
-		
-		return "fileview/downloader";
 	}
 	
 	//토렌트 업로드 폴더 로드
