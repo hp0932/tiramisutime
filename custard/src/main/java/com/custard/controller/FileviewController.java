@@ -65,7 +65,13 @@ public class FileviewController {
 		}
 	}
 	
-	//토렌트 업로드 폴더 로드
+	/**
+	 * 토렌트 업로드 폴더 로드
+	 * @param request
+	 * @param params
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping(value = "/upTorrent", method = RequestMethod.POST)
 	public String goTorrentPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
 		

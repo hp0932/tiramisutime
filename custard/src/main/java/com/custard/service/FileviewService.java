@@ -42,7 +42,7 @@ public class FileviewService {
 	/**
 	 * 파일리스트 출력
 	 * 
-	 * @return
+	 * @return Map fileList
 	 */
 	public Map getFileList(String path, String folder) {
 		HashMap result = new HashMap();
@@ -67,7 +67,7 @@ public class FileviewService {
 					Long fileSize = info.length();
 					logger.debug(fullName);
 					Map fileInfo = new HashMap();
-
+					
 					// 폴더명, 경로및폴더명, 파일사이즈(폴더이기에 0임), 폴더여부
 					fileInfo.put("fileName", info.getName());
 					fileInfo.put("fullName", fullName);
@@ -111,7 +111,7 @@ public class FileviewService {
 	/**
 	 * 토렌트 파일리스트 출력
 	 * 
-	 * @return
+	 * @return map torrentFileList
 	 */
 	public Map getTorrentFileList(String path, String folder) {
 		HashMap result = new HashMap();
@@ -202,7 +202,6 @@ public class FileviewService {
 				nFile.setReadable(true, false);
 				nFile.setWritable(true, false);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -319,7 +318,7 @@ public class FileviewService {
 				count = fileList.length;
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return count;
 	}
@@ -380,6 +379,7 @@ public class FileviewService {
 
 	/**
 	 * 파일 사이즈 처리
+	 * sizecheck의 의미 : 0-byte, 1-kb, 2-mb, 3-gb, 4-tb
 	 * 
 	 * @param fileSize
 	 * @return String 파일+사이즈

@@ -134,8 +134,6 @@ function cdFolder(folder){
 	data.append($('<input/>', {type: 'hidden', name: 'path', value: path}));
 	data.append($('<input/>', {type: 'hidden', name: 'folderName', value: folder}));
 	data.submit();
-	//var cd = "/fileview/downloader?folderName=" + folder + "&path=" + path;
-	//location.href=cd;
 }
 
 //돌아가기 버튼
