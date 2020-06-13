@@ -174,14 +174,12 @@ function goTorrentFolder(){
 			<c:forEach items="${data.folderList}" var="result" varStatus="i">
 				<tr>
 					<td style="padding:0px;">
-						<div class="col-xs-10" style="cursor:pointer; padding:5px 15px 5px 15px;" onclick='cdFolder("${result.fileName}")'>
+						<div class="col-xs-11" style="cursor:pointer; padding:5px 15px 5px 15px;" onclick='cdFolder("${result.fileName}")'>
 							<span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
 						</div>
-						<div class="col-xs-1 text-right" style="padding:4px 0px 3px 15px;">
+						<div class="col-xs-1 text-right" style="padding:4px 15px 3px 0px;">
 							<!-- 폴더 다운로드 -->
 							<button class="btn btn-primary" style="padding:3px 7px 1px 6px;" onclick="dirDown('${result.fileName}')"><span class="glyphicon glyphicon-download-alt" style="font-size:14px;"></span></button>
-						</div>
-						<div class="col-xs-1 text-right" style="padding:4px 15px 3px 0px;">
 							<!-- 폴더 삭제 -->
 							<button class="btn btn-danger" style="padding:3px 6px 1px 6px;" onclick="fileDelete('${result.fileName}')"><span class="glyphicon glyphicon-trash" style="font-size:14px;"></span></button>
 						</div>
@@ -204,8 +202,8 @@ function goTorrentFolder(){
 			<tr><td></td></tr>
 		</table>
 	</div>
-	<div class="col-xs-2" style="padding:5px 0px 0px 0px; z-index:3; height:44px; background-color:white;"><button id="torrentFolder" onclick="goTorrentFolder()" class="btn btn-default">토렌트 업로드 폴더</button></div>
-	<div class="col-xs-10 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3; height:44px; background-color:white;">
+	<!-- <div class="col-xs-2" style="padding:5px 0px 0px 0px; z-index:3; height:44px; background-color:white;"><button id="torrentFolder" onclick="goTorrentFolder()" class="btn btn-default">토렌트 업로드 폴더</button></div> -->
+	<div class="col-xs-12 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3; height:44px; background-color:white;">
 		<form enctype="multipart/form-data" style="display:inline;">
 			<label id="fileInputLabel" for="btnFileInput"><input id="btnFileInput" class="btn btn-default" type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/></label>
 			<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>

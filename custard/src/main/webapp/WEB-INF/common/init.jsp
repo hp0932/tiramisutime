@@ -20,6 +20,9 @@
 #btnHome {
 	cursor : pointer;
 }
+.container-fluid {
+	margin : 0px 30px 0px 30px;
+}
 </style>
 
 <script type="text/javascript">
@@ -81,7 +84,7 @@ function getParameterByName(name) {
 </script>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 	<div id="headerBar" class="col-xs-12">
 		<div class="col-xs-1" style="padding-top:2px; padding-bottom:2px;">
 			<span id="btnHome" class="glyphicon glyphicon-home" style="font-size:25px;"></span>
@@ -90,10 +93,10 @@ function getParameterByName(name) {
 			<c:choose>
 				<c:when test="${sessionScope.userId ne null}">
 					<div class="text-right">
-							<c:if test="${sessionScope.level eq 2}"><span style="font-weight:bold;">[관리자]</span></c:if>
-							<c:if test="${sessionScope.level eq 3}"><span style="font-weight:bold;">[운영자]</span></c:if>
-							<span>${sessionScope.name}님 환영합니다&nbsp&nbsp</span>
-							<button id="btnLogout" type="button" class="btn btn-primary"">로그아웃</button>
+							<c:if test="${sessionScope.level eq 2}"><span style="font-size:18px;font-weight:bold;">[관리자]</span></c:if>
+							<c:if test="${sessionScope.level eq 3}"><span style="font-size:18px;font-weight:bold;">[운영자]</span></c:if>
+							<span style="font-size:18px;">${sessionScope.name}님 환영합니다&nbsp&nbsp</span>
+							<button id="btnLogout" type="button" class="btn btn-primary">로그아웃</button>
 					</div>
 				</c:when>
 				<c:otherwise>
