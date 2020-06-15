@@ -174,6 +174,7 @@ function goTorrentFolder(){
 			<c:forEach items="${data.folderList}" var="result" varStatus="i">
 				<tr>
 					<td style="padding:0px;">
+						<!-- 폴더 선택 -->
 						<div class="col-xs-11" style="cursor:pointer; padding:5px 15px 5px 15px;" onclick='cdFolder("${result.fileName}")'>
 							<span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
 						</div>
@@ -189,6 +190,7 @@ function goTorrentFolder(){
 			<c:forEach items="${data.fileList}" var="result" varStatus="i">
 				<tr>
 					<td style="padding:0px;">
+						<!-- 파일 다운로드 -->
 						<div onclick='download("${result.fileName}")' class="col-xs-8" style="border-right:1px dotted gray; cursor:pointer; padding:5px 15px 5px 15px;">
 							<span class="glyphicon glyphicon-file" style="font-size:18px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
 						</div>
