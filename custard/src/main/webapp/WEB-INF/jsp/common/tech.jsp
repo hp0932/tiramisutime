@@ -65,6 +65,12 @@
 				<div class="col-xs-5 text-center">3.4.1</div>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<div class="col-xs-7 text-center" style="border-right:1px dotted gray;">Transmission</div>
+				<div class="col-xs-5 text-center">2.92</div>
+			</td>
+		</tr>
 		<tr><td></td></tr>
 	</table>
 

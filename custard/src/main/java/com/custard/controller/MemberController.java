@@ -106,6 +106,13 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "admin", method = RequestMethod.POST)
 	public String getMemberList(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) throws Exception {
+		
+
+		//어드민 페이지 level null처리
+		if(session.getAttribute("level") == null) {
+			return "redirect:/";
+		}
+		
 		int level = (int) session.getAttribute("level");
 		
 		Map data = memberService.getMemberList(request, params, session);

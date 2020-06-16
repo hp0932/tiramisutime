@@ -47,7 +47,7 @@ function selectThread(select){
 <title>free board</title>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 	<div>
 		<div style="min-height:340px;">
 		<table class="table table-hover table-condensed">
