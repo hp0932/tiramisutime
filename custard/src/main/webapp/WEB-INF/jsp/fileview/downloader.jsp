@@ -175,10 +175,10 @@ function goTorrentFolder(){
 				<tr>
 					<td style="padding:0px;">
 						<!-- 폴더 선택 -->
-						<div class="col-xs-11" style="cursor:pointer; padding:5px 15px 5px 15px;" onclick='cdFolder("${result.fileName}")'>
+						<div class="col-xs-10 col-md-11" style="cursor:pointer; padding:5px 15px 5px 15px;" onclick='cdFolder("${result.fileName}")'>
 							<span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
 						</div>
-						<div class="col-xs-1 text-right" style="padding:4px 15px 3px 0px;">
+						<div class="col-xs-2 col-md-1 text-right" style="padding:4px 15px 3px 0px;">
 							<!-- 폴더 다운로드 -->
 							<button class="btn btn-primary" style="padding:3px 7px 1px 6px;" onclick="dirDown('${result.fileName}')"><span class="glyphicon glyphicon-download-alt" style="font-size:14px;"></span></button>
 							<!-- 폴더 삭제 -->
