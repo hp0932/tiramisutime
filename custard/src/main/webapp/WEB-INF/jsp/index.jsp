@@ -17,9 +17,12 @@
 .btnIndexDiv {
 	height : 170px;
 	margin : -3px;
+	cursor : pointer;
+}
+.clockDiv {
 	border : 3px solid #eee;
 	border-radius : 10px;
-	cursor : pointer;
+	cursor: default;
 }
 .clocker {
 	margin : 5px 0px 5px 0px;
@@ -62,13 +65,19 @@ setInterval(function(){clock2()}, 1000);
 //시계 시간 표시
 function clock1(){
 	var clock = $('#clock1');
-	var now = moment().format('hh:mm:ss');
+	var txt = $('#clock1txt');
+	var now = moment().tz("Asia/Seoul").format('HH:mm:ss');
+	var day = moment().tz("Asia/Seoul").format('MM月DD日');
 	clock.text(now);
+	txt.text(day);
 }
 function clock2(){
 	var clock = $('#clock2');
-	var now = moment().format('hh:mm:ss');
+	var txt = $('#clock2txt');
+	var now = moment().tz("America/toronto").format('HH:mm:ss');
+	var day = moment().tz("America/toronto").format('MM月DD日');
 	clock.text(now);
+	txt.text(day);
 }
 </script>
 </head>
@@ -129,12 +138,17 @@ function clock2(){
 	</c:if>
 	<!-- 시계 -->
 	<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
-		<div id="clockDiv" class="text-center btnIndexDiv">
+		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
+			<h1 class="clocker" id="clock1txt"></h1>
 			<h1 class="clocker" id="clock1"></h1>
-			<span class="textIndex text-center">한국시간</span>
-			<hr style="margin:0px;">
+			<span class="textIndex text-center">아시아/서울</span>
+		</div>
+	</div>
+	<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
+		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
+			<h1 class="clocker" id="clock2txt"></h1>
 			<h1 class="clocker" id="clock2"></h1>
-			<span class="textIndex text-center">한국시간</span>
+			<span class="textIndex text-center">미국/토론토</span>
 		</div>
 	</div>
 </div>

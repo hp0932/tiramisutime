@@ -10,7 +10,8 @@
 
 <script type="text/javascript" src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/3.4.1/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/webjars/moment/2.25.3/moment.js"></script>
+<script type="text/javascript" src="/static/js/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="/static/js/moment-timezone-with-data.js"></script>
 
 <style type="text/css">
 #headerBar {
