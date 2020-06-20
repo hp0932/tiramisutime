@@ -74,8 +74,12 @@ function clock1(){
 function clock2(){
 	var clock = $('#clock2');
 	var txt = $('#clock2txt');
-	var now = moment().tz("America/toronto").format('HH:mm:ss');
-	var day = moment().tz("America/toronto").format('MM月DD日');
+	var select = $('#selectTimezone').val();
+	var selectTxt = $('#selectTimezone option:checked').text();
+	var now = moment().tz(select).format('HH:mm:ss');
+	var day = moment().tz(select).format('MM月DD日');
+	
+	$('#cityName').html(selectTxt);
 	clock.text(now);
 	txt.text(day);
 }
@@ -141,14 +145,23 @@ function clock2(){
 		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
 			<h1 class="clocker" id="clock1txt"></h1>
 			<h1 class="clocker" id="clock1"></h1>
-			<span class="textIndex text-center">아시아/서울</span>
+			<span class="textIndex text-center" style="font-size:18px;">서울</span>
 		</div>
 	</div>
 	<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
 		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
 			<h1 class="clocker" id="clock2txt"></h1>
 			<h1 class="clocker" id="clock2"></h1>
-			<span class="textIndex text-center">미국/토론토</span>
+			<span id="cityName" class="textIndex text-center" style="font-size:18px;">미국/시카고</span><br>
+			<div style="padding:0px 5px 0px 5px;">
+				<select id="selectTimezone" class="form-control" style="margin:5px 5px 5px 0px;">
+					<option value="America/Los_Angeles">로스앤젤레스[PST]</option>
+					<option value="America/Denver">덴버[MST]</option>
+					<option value="America/Chicago">시카고[CST]</option>
+					<option value="America/New_York" selected="selected">뉴욕[EST]</option>
+					<option value="Asia/Tokyo">도쿄</option>
+				</select>
+			</div>
 		</div>
 	</div>
 </div>
