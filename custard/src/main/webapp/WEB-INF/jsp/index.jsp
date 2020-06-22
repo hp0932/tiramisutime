@@ -62,7 +62,8 @@ $(document).ready(function(){
 setInterval(function(){clock1()}, 1000);
 setInterval(function(){clock2()}, 1000);
 
-//시계 시간 표시
+/* 시계 시간 표시 */
+//국내 시간 표시
 function clock1(){
 	var clock = $('#clock1');
 	var txt = $('#clock1txt');
@@ -71,6 +72,7 @@ function clock1(){
 	clock.text(now);
 	txt.text(day);
 }
+//선택한 해외시간 표시
 function clock2(){
 	var clock = $('#clock2');
 	var txt = $('#clock2txt');
@@ -148,6 +150,7 @@ function clock2(){
 			<span class="textIndex text-center" style="font-size:18px;">서울</span>
 		</div>
 	</div>
+	<!-- 해외시간 -->
 	<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
 		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
 			<h1 class="clocker" id="clock2txt"></h1>
