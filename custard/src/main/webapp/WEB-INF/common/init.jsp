@@ -22,6 +22,7 @@
 #btnHome {
 	cursor : pointer;
 }
+
 .container-fluid {
 	margin : 0px 30px 0px 30px;
 }

@@ -46,13 +46,15 @@ $(document).ready(function(){
 	$('#adminConsole').click(function(){
 		location.href='/member/admin'
 	});
+	
 	$('#adminImg').click(function(){
 		location.href='/adminImg'
 	});
+	
 	$('#downloader').click(function(){
 		location.href='/fileview/downloader'
 	});
-	
+
 	//시계 시작 로딩
 	clock1();
 	clock2();
@@ -84,6 +86,21 @@ function clock2(){
 	$('#cityName').html(selectTxt);
 	clock.text(now);
 	txt.text(day);
+}
+
+//사용자 선택 시간대를 쿠키에 저장
+function selectClocker(){
+	var select = $('#selectTimezone').val();
+	setCookie("selectTimezone", select, 365);
+	clock2();
+}
+
+//쿠키 저장
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
 }
 </script>
 </head>
@@ -157,12 +174,12 @@ function clock2(){
 			<h1 class="clocker" id="clock2"></h1>
 			<span id="cityName" class="textIndex text-center" style="font-size:18px;">미국/시카고</span><br>
 			<div style="padding:0px 5px 0px 5px;">
-				<select id="selectTimezone" class="form-control" style="margin:5px 5px 5px 0px;">
-					<option value="America/Los_Angeles">로스앤젤레스[PST]</option>
-					<option value="America/Denver">덴버[MST]</option>
-					<option value="America/Chicago">시카고[CST]</option>
-					<option value="America/New_York" selected="selected">뉴욕[EST]</option>
-					<option value="Asia/Tokyo">도쿄</option>
+				<select id="selectTimezone" class="form-control" onchange="selectClocker()" style="margin:5px 5px 5px 0px;">
+					<option value="America/Los_Angeles"<c:if test="${cookie.selectTimezone.value eq 'America/Los_Angeles'}">selected="selected"</c:if>>로스앤젤레스[PST]</option>
+					<option value="America/Denver"<c:if test="${cookie.selectTimezone.value eq 'America/Denver'}">selected="selected"</c:if>>덴버[MST]</option>
+					<option value="America/Chicago"<c:if test="${cookie.selectTimezone.value eq 'America/Chicago'}">selected="selected"</c:if>>시카고[CST]</option>
+					<option value="America/New_York"<c:if test="${cookie.selectTimezone.value eq 'America/New_York'}">selected="selected"</c:if>>뉴욕[EST]</option>
+					<option value="Asia/Tokyo"<c:if test="${cookie.selectTimezone.value eq 'Asia/Tokyo'}">selected="selected"</c:if>>도쿄</option>
 				</select>
 			</div>
 		</div>
