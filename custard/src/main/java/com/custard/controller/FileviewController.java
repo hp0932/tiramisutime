@@ -128,7 +128,7 @@ public class FileviewController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value = "/dirDown", method = RequestMethod.GET)
+	@RequestMapping(value = "/dirDown", method = RequestMethod.POST)
 	public void getFiles(HttpServletRequest request, HttpServletResponse response) {
 		String folderName = request.getParameter("folderName");
 		String count = request.getParameter("count");

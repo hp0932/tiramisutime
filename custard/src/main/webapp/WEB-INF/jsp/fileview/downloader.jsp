@@ -83,10 +83,13 @@ function dirDown(folderName){
 
 //폴더 다운로드 실행
 function getDir(folderName, count){
-	var url = '/fileview/dirDown?folderName=' + folderName + '&count=' + count;
-	var frame = $('<iframe name="' + count + '" style="display: none;"></iframe>');
-	frame.appendTo("body");
-	$("iframe[name=" + count + "]").attr("src", url);
+	var iv = count * 500;
+	setTimeout(function(){
+		var url = '/fileview/dirDown?folderName=' + folderName + '&count=' + count;
+		var frame = $('<iframe name="' + count + '" style="display: none;"></iframe>');
+		frame.appendTo("body");
+		$("iframe[name=" + count + "]").attr("src", url);
+	}, iv);
 }
 
 //파일 삭제

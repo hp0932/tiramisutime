@@ -179,7 +179,7 @@ function setCookie(cookieName, value, exdays){
 					<option value="America/Denver"<c:if test="${cookie.selectTimezone.value eq 'America/Denver'}">selected="selected"</c:if>>덴버[MST]</option>
 					<option value="America/Chicago"<c:if test="${cookie.selectTimezone.value eq 'America/Chicago'}">selected="selected"</c:if>>시카고[CST]</option>
 					<option value="America/New_York"<c:if test="${cookie.selectTimezone.value eq 'America/New_York'}">selected="selected"</c:if>>뉴욕[EST]</option>
-					<option value="Asia/Tokyo"<c:if test="${cookie.selectTimezone.value eq 'Asia/Tokyo'}">selected="selected"</c:if>>도쿄</option>
+					<option value="Europe/London"<c:if test="${cookie.selectTimezone.value eq 'Europe/London'}">selected="selected"</c:if>>런던[GMT]</option>
 				</select>
 			</div>
 		</div>

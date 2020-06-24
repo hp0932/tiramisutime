@@ -19,7 +19,7 @@
 	<table class="table table-hover table-condensed">
 		<tr>
 			<td>
-				<img src="adminimg.png">
+				<img src="static/img/adminimg.png">
 			</td>
 		</tr>
 	</table>

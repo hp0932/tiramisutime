@@ -71,6 +71,18 @@
 				<div class="col-xs-5 text-center">2.92</div>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<div class="col-xs-7 text-center" style="border-right:1px dotted gray;">moment.js</div>
+				<div class="col-xs-5 text-center">2.27.0</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="col-xs-7 text-center" style="border-right:1px dotted gray;">moment timezone</div>
+				<div class="col-xs-5 text-center">0.5.31-2020a</div>
+			</td>
+		</tr>
 		<tr><td></td></tr>
 	</table>
 
