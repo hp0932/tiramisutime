@@ -83,12 +83,24 @@ function dirDown(folderName){
 
 //폴더 다운로드 실행
 function getDir(folderName, count){
+	console.log(count);
 	var iv = count * 500;
 	setTimeout(function(){
-		var url = '/fileview/dirDown?folderName=' + folderName + '&count=' + count;
+		var url = '/fileview/dirDown';
 		var frame = $('<iframe name="' + count + '" style="display: none;"></iframe>');
 		frame.appendTo("body");
-		$("iframe[name=" + count + "]").attr("src", url);
+		
+		var form = $('<form></form>');
+		form.attr('name', 'downForm');
+		form.attr('method', 'post');
+		form.attr('action', url);
+		form.attr('target', count);
+		
+		form.append($('<input/>', {type: 'hidden', name: 'folderName', value: folderName}));
+		form.append($('<input/>', {type: 'hidden', name: 'count', value: count}));
+		form.appendTo("body");
+		
+		form.submit();
 	}, iv);
 }
 
