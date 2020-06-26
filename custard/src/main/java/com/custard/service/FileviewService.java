@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,9 +50,11 @@ public class FileviewService {
 		// 파일리스트 및 폴더리스트
 		List fileList = new ArrayList();
 		List folderList = new ArrayList();
-
+		File[] files = new File(userRoute).listFiles();
+		Arrays.sort(files);
+		
 		try {
-			for (File info : new File(userRoute).listFiles()) {
+			for (File info : files) {
 				// 폴더리스트
 				if (info.isDirectory()) {
 					// 루트위치를 포함한 폴더명 제작
@@ -85,12 +89,6 @@ public class FileviewService {
 		} catch (Exception e) {
 			logger.debug("하위 디렉토리 및 파일이 없습니다");
 		}
-
-		/*
-		 * // 하위의 모든 파일 for (File info : FileUtils.listFiles(new File(ROUTE),
-		 * TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE)) {
-		 * System.out.println(info.getName()); }
-		 */
 
 		result.put("path", path);
 		result.put("folder", folder);
