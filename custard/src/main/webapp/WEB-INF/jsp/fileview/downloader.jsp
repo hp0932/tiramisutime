@@ -11,7 +11,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	console.log("${data}");
+	//console.log("${data}");
+	//토렌트 파일 업로드
 	$(document).on('click','#btnUpTorrent',function(){
 	 	var data = $($(this).parents('form'));
 	 	
@@ -74,6 +75,7 @@ function dirDown(folderName){
 			'folderName' : folderName
 		},
 		success : function(result){
+			//파일 갯수만큼 폴더 내부파일 다운로드 실행
 			for (var i = 0; i < result; i++) {
 				getDir(folderName, i);
 			}
@@ -83,19 +85,22 @@ function dirDown(folderName){
 
 //폴더 다운로드 실행
 function getDir(folderName, count){
-	console.log(count);
+	//0.5초씩 지연실행
 	var iv = count * 500;
 	setTimeout(function(){
 		var url = '/fileview/dirDown';
+		//count값으로 name값을 주입하여 iframe 생성, body에 append
 		var frame = $('<iframe name="' + count + '" style="display: none;"></iframe>');
 		frame.appendTo("body");
 		
+		//form을 만들어 iframe을 통해 submit, count값을 name으로 가진 iframe에 target 지정
 		var form = $('<form></form>');
 		form.attr('name', 'downForm');
 		form.attr('method', 'post');
 		form.attr('action', url);
 		form.attr('target', count);
 		
+		//form에 input값을 추가한 후, submit
 		form.append($('<input/>', {type: 'hidden', name: 'folderName', value: folderName}));
 		form.append($('<input/>', {type: 'hidden', name: 'count', value: count}));
 		form.appendTo("body");
