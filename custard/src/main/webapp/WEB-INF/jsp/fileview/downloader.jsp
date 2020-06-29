@@ -86,6 +86,7 @@ function dirDown(folderName){
 //폴더 다운로드 실행
 function getDir(folderName, count){
 	//0.5초씩 지연실행
+	//count를 곱하여 파일 count*0.5초 지연실행. 0.5/1.0/1.5 순으로...
 	var iv = count * 500;
 	setTimeout(function(){
 		var url = '/fileview/dirDown';
@@ -184,6 +185,7 @@ function goTorrentFolder(){
 		<table class="table table-hover table-condensed" style="margin:0px;">
 			<c:if test="${data.folder ne ''}">
 				<tr>
+					<!-- 뒤로가기(상위 폴더로) -->
 					<td onclick='goBack()' style="cursor:pointer;">
 						<div class="col-xs-12">
 							<span class="glyphicon glyphicon-level-up" style="font-size:19px;"></span>&nbsp&nbsp<span></span><span style="font-weight:bold;">..</span>
@@ -210,7 +212,7 @@ function goTorrentFolder(){
 			<c:forEach items="${data.fileList}" var="result" varStatus="i">
 				<tr>
 					<td style="padding:0px;">
-						<!-- 파일 다운로드 -->
+						<!-- 파일 다운로드(파일명 div클릭시) -->
 						<div onclick='download("${result.fileName}")' class="col-xs-8" style="border-right:1px dotted gray; cursor:pointer; padding:5px 15px 5px 15px;">
 							<span class="glyphicon glyphicon-file" style="font-size:18px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
 						</div>
