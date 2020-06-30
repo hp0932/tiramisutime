@@ -83,6 +83,18 @@
 				<div class="col-xs-5 text-center">0.5.31-2020a</div>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<div class="col-xs-7 text-center" style="border-right:1px dotted gray;">Ubuntu</div>
+				<div class="col-xs-5 text-center">18.04.4 LTS</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="col-xs-7 text-center" style="border-right:1px dotted gray;">apache-tomcat</div>
+				<div class="col-xs-5 text-center">9.0.30</div>
+			</td>
+		</tr>
 		<tr><td></td></tr>
 	</table>
 
