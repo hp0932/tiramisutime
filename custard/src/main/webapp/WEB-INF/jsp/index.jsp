@@ -31,26 +31,32 @@
 	
 <script type="text/javascript" charset="UTF-8">
 $(document).ready(function(){
+	//자유게시판
 	$('#freeBoard').click(function(){
 		location.href='/board/list'
 	});
 	
+	//파일게시판
 	$('#fileBoard').click(function(){
 		location.href='/fileBoard/list'
 	});
 	
+	//사용기술
 	$('#useTech').click(function(){
 		location.href='/tech'
 	});
 	
+	//관리자 메뉴
 	$('#adminConsole').click(function(){
 		location.href='/member/admin'
 	});
 	
+	//관리자메뉴 이미지
 	$('#adminImg').click(function(){
 		location.href='/adminImg'
 	});
 	
+	//파일 다운로더
 	$('#downloader').click(function(){
 		location.href='/fileview/downloader'
 	});
