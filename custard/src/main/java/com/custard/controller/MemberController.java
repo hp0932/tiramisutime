@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.custard.dto.BoardDto;
-import com.custard.service.BoardService;
 import com.custard.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -38,7 +35,7 @@ public class MemberController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return jsp page
 	 */
 	@RequestMapping(value = "join",  method = RequestMethod.GET)
 	public String getMemberJoin(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -67,7 +64,7 @@ public class MemberController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return 
+	 * @return int level
 	 * @throws Exception
 	 */
 	@ResponseBody
@@ -84,7 +81,7 @@ public class MemberController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return
+	 * @return redirect jsp page
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "logout",  method = RequestMethod.POST)
@@ -101,7 +98,7 @@ public class MemberController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return
+	 * @return jsp page || redirect jsp page
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "admin", method = RequestMethod.POST)
@@ -134,7 +131,7 @@ public class MemberController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return redirect jsp page
 	 */
 	@RequestMapping(value = "admin/levelCommit", method = RequestMethod.GET)
 	public String setLevel(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -154,7 +151,7 @@ public class MemberController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return redirect jsp page
 	 */
 	@RequestMapping(value = "admin/userCommit")
 	public String setUserLevel(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {

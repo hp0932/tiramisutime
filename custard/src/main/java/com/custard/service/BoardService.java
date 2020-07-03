@@ -39,9 +39,9 @@ public class BoardService {
 	
 	/**
 	 * 게시판 목록조회
-	 * @param request
-	 * @param params
-	 * @return Map
+	 * @param String searchContent
+	 * @param int nowPage
+	 * @return Map(Pageable)
 	 */
 	public Map getBoardList(HttpServletRequest request, @RequestParam Map params) {
 		HashMap result = new HashMap();
@@ -140,9 +140,8 @@ public class BoardService {
 	
 	/**
 	 * 게시판 단건조회
-	 * @param request
-	 * @param params
-	 * @return Map
+	 * @param String nowThread
+	 * @return Map(boardDto)
 	 */
 	public Map getBoardRead(HttpServletRequest request, @RequestParam Map params) {
 		HashMap result = new HashMap();
@@ -172,10 +171,9 @@ public class BoardService {
 	
 	/**
 	 * 게시글 저장
-	 * @param request
-	 * @param params
-	 * @param session
-	 * @return
+	 * @param boardDto
+	 * @param session(userId, name)
+	 * @return int threadNo(글번호)
 	 */
 	@Transactional
 	public Long setBoardWrite(HttpServletRequest request, @RequestParam Map params,  HttpSession session) {
@@ -190,10 +188,9 @@ public class BoardService {
 	
 	/**
 	 * 게시글 업데이트
-	 * @param request
-	 * @param params
-	 * @param session
-	 * @return
+	 * @param boardDto
+	 * @param session(userId, name)
+	 * @return int threadNo(글번호)
 	 */
 	@Transactional
 	public Long setBoardUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
@@ -206,6 +203,10 @@ public class BoardService {
 		return boardRepo.save(dto.toEntity()).getId();
 	}
 	
+	/**
+	 * 게시글 삭제
+	 * @param int nowThread
+	 */
 	public void setBoardDelete(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
 		
 		Long boardId = Long.parseLong(request.getParameter("nowThread"));
@@ -219,7 +220,7 @@ public class BoardService {
 	 * 게시글 저장을 위한 dto포장
 	 * @param request
 	 * @param params
-	 * @return
+	 * @return boardDto
 	 */
 	public BoardDto putWriteDto(HttpServletRequest request, @RequestParam Map params) {
 		BoardDto dto = new BoardDto();
@@ -237,7 +238,7 @@ public class BoardService {
 	 * 게시글 업데이트를 위한 dto포장
 	 * @param request
 	 * @param params
-	 * @return
+	 * @return boardDto
 	 */
 	public BoardDto putUpdateDto(HttpServletRequest request, @RequestParam Map params) {
 		BoardDto dto = new BoardDto();

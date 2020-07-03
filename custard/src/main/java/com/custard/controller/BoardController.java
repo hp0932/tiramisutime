@@ -35,7 +35,7 @@ public class BoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return jsp page
 	 */
 	@RequestMapping(value = "list",  method = RequestMethod.GET)
 	public String getBoardList(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -52,7 +52,7 @@ public class BoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return jsp page
 	 */
 	@RequestMapping(value = "read",  method = RequestMethod.GET)
 	public String getBoardRead(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -69,7 +69,7 @@ public class BoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return jsp page
 	 */
 	@RequestMapping(value = "write",  method = RequestMethod.GET)
 	public String getBoardWrite(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) {
@@ -106,7 +106,7 @@ public class BoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return jsp page
 	 */
 	@RequestMapping(value = "commit",  method = RequestMethod.POST)
 	public String setBoard(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) {
@@ -121,7 +121,7 @@ public class BoardController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return
+	 * @return jsp page
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String setBoardUpdate(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) {
@@ -136,7 +136,7 @@ public class BoardController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return
+	 * @return jsp page
 	 */
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String setBoardDelete(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) {

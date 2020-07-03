@@ -1,18 +1,10 @@
 package com.custard.service;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -21,20 +13,13 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.custard.common.CryptoUtil;
-import com.custard.dto.BoardDto;
 import com.custard.dto.LevelDto;
 import com.custard.dto.MemberDto;
-import com.custard.entity.BoardEntity;
 import com.custard.entity.MemberEntity;
-import com.custard.repository.BoardRepository;
 import com.custard.repository.LevelRepository;
 import com.custard.repository.MemberRepository;
 
@@ -55,8 +40,7 @@ public class MemberService {
 	
 	/**
 	 * 회원가입 구현
-	 * @param request
-	 * @param params
+	 * @param memberDto
 	 * @return Long id
 	 * @throws Exception
 	 */
@@ -115,9 +99,8 @@ public class MemberService {
 	
 	/**
 	 * 로그인 구현
-	 * @param request
-	 * @param params
-	 * @param session
+	 * @param String userId
+	 * @param String password
 	 * @return user level
 	 * @throws Exception
 	 */
@@ -151,7 +134,7 @@ public class MemberService {
 	 * @param request
 	 * @param params
 	 * @param session
-	 * @return
+	 * @return List(memberDto)
 	 * @throws Exception
 	 */
 	public Map getMemberList(HttpServletRequest request, @RequestParam Map params, HttpSession session) throws Exception {
@@ -189,7 +172,7 @@ public class MemberService {
 	 * @param request
 	 * @param params
 	 * @param session
-	 * @return
+	 * @return List(level data)
 	 * @throws Exception
 	 */
 	public Map getLevelList(HttpServletRequest request, @RequestParam Map params, HttpSession session) throws Exception {
@@ -203,8 +186,8 @@ public class MemberService {
 	
 	/**
 	 * 레벨 저장
-	 * @param request
-	 * @param params
+	 * @param int level
+	 * @param String levelName
 	 */
 	public void setLevel(int level, String levelName) {
 		LevelDto dto = new LevelDto();
@@ -215,9 +198,9 @@ public class MemberService {
 	}
 	/**
 	 * 레벨 업데이트
-	 * @param id
-	 * @param level
-	 * @param levelName
+	 * @param Long id
+	 * @param int level
+	 * @param String levelName
 	 */
 	public void setLevel(Long id, int level, String levelName) {
 		LevelDto dto = new LevelDto();
@@ -230,8 +213,10 @@ public class MemberService {
 	
 	/**
 	 * 회원가입을 위한 DTO처리
-	 * @param request
-	 * @param params
+	 * @param String userId
+	 * @param String password
+	 * @param String email
+	 * @param String name
 	 * @return DTO에 자료를 담아 return
 	 */
 	public MemberDto insertDto(HttpServletRequest request, @RequestParam Map params) {
