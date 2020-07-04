@@ -45,7 +45,7 @@ public class FileBoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return 게시판 목록 페이지
 	 */
 	@RequestMapping(value = "list",  method = RequestMethod.GET)
 	public String getBoardList(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -62,7 +62,7 @@ public class FileBoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return 게시글 페이지
 	 */
 	@RequestMapping(value = "read",  method = RequestMethod.GET)
 	public String getBoardRead(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -79,7 +79,7 @@ public class FileBoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return 게시글 쓰기 페이지
 	 */
 	@RequestMapping(value = "write",  method = RequestMethod.GET)
 	public String getBoardWrite(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) {
@@ -99,7 +99,7 @@ public class FileBoardController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return jsp page
+	 * @return 게시글 수정 페이지
 	 */
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String getBoardModify(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) {
@@ -136,7 +136,7 @@ public class FileBoardController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return 게시판 목록 페이지
 	 */
 	@RequestMapping(value = "commit",  method = RequestMethod.POST)
 	public String setBoard(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session, MultipartHttpServletRequest mpfRequest) {
@@ -153,7 +153,7 @@ public class FileBoardController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return
+	 * @return 게시판 목록 페이지
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String setBoardUpdate(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session, MultipartHttpServletRequest mpfRequest) {
@@ -170,7 +170,7 @@ public class FileBoardController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return
+	 * @return 게시판 목록 페이지
 	 */
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String setBoardDelete(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session) {

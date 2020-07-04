@@ -70,7 +70,7 @@ public class FileviewController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return
+	 * @return 토렌트 업로드 폴더 리스트 출력페이지
 	 */
 	@RequestMapping(value = "/upTorrent", method = RequestMethod.POST)
 	public String goTorrentPage(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
@@ -101,6 +101,7 @@ public class FileviewController {
 	 * @param map
 	 * @param session
 	 * @param mpfRequest
+	 * @return 파일 다운로더 페이지
 	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String setFile(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session, MultipartHttpServletRequest mpfRequest) {
@@ -113,6 +114,7 @@ public class FileviewController {
 	 * 폴더 리스트 카운터
 	 * @param request
 	 * @param response
+	 * @return 폴더 내 파일 갯수
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/count", method = RequestMethod.POST)
@@ -151,6 +153,7 @@ public class FileviewController {
 	 * 파일 삭제
 	 * @param request
 	 * @param response
+	 * @return 파일 다운로더 페이지
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deleteFile(HttpServletRequest request, HttpServletResponse response) {

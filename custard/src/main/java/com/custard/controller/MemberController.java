@@ -35,7 +35,7 @@ public class MemberController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return jsp page
+	 * @return 회원가입 페이지
 	 */
 	@RequestMapping(value = "join",  method = RequestMethod.GET)
 	public String getMemberJoin(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -81,7 +81,7 @@ public class MemberController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return redirect jsp page
+	 * @return index페이지
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "logout",  method = RequestMethod.POST)
@@ -98,7 +98,7 @@ public class MemberController {
 	 * @param params
 	 * @param map
 	 * @param session
-	 * @return jsp page || redirect jsp page
+	 * @return 관리자페이지 || index페이지
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "admin", method = RequestMethod.POST)
@@ -131,7 +131,7 @@ public class MemberController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return redirect jsp page
+	 * @return 관리자페이지
 	 */
 	@RequestMapping(value = "admin/levelCommit", method = RequestMethod.GET)
 	public String setLevel(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
@@ -151,7 +151,7 @@ public class MemberController {
 	 * @param request
 	 * @param params
 	 * @param map
-	 * @return redirect jsp page
+	 * @return 관리자페이지
 	 */
 	@RequestMapping(value = "admin/userCommit")
 	public String setUserLevel(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {

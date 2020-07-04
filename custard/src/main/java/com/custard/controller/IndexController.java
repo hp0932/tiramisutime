@@ -21,7 +21,7 @@ public class IndexController {
 	 * welcome페이지 출력
 	 * @param request
 	 * @param params
-	 * @return
+	 * @return index페이지
 	 */
 	@RequestMapping(value = "/",  method = RequestMethod.GET)
 	public String goIndex(HttpServletRequest request, @RequestParam Map params) {
@@ -33,7 +33,7 @@ public class IndexController {
 	 * 사용기술 페이지 출력
 	 * @param request
 	 * @param params
-	 * @return
+	 * @return 사용기술 페이지
 	 */
 	@RequestMapping(value = "/tech", method = RequestMethod.GET)
 	public String goTech(HttpServletRequest request, @RequestParam Map params) {
@@ -44,7 +44,7 @@ public class IndexController {
 	 * 어드민 페이지 이미지 출력
 	 * @param request
 	 * @param params
-	 * @return
+	 * @return 관리자페이지 이미지
 	 */
 	@RequestMapping(value = "/adminImg", method = RequestMethod.GET)
 	public String goAdminImg(HttpServletRequest request, @RequestParam Map params) {
