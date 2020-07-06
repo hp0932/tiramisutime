@@ -47,9 +47,9 @@ public class FileBoardService {
 	
 	/**
 	 * 게시판 목록조회
-	 * @param request
-	 * @param params
-	 * @return Map
+	 * @param String searchContent
+	 * @param int nowPage
+	 * @return Map(Pageable)
 	 */
 	public Map getBoardList(HttpServletRequest request, @RequestParam Map params) {
 		HashMap result = new HashMap();
@@ -146,9 +146,8 @@ public class FileBoardService {
 	
 	/**
 	 * 게시판 단건조회
-	 * @param request
-	 * @param params
-	 * @return Map
+	 * @param String nowThread
+	 * @return Map(fileBoardDto)
 	 */
 	public Map getBoardRead(HttpServletRequest request, @RequestParam Map params) {
 		HashMap result = new HashMap();
@@ -180,10 +179,9 @@ public class FileBoardService {
 	
 	/**
 	 * 게시글 저장
-	 * @param request
-	 * @param params
-	 * @param session
-	 * @return
+	 * @param fileBoardDto
+	 * @param session(userId, name)
+	 * @return int threadNo(글번호)
 	 */
 	@Transactional
 	public Long setBoardWrite(HttpServletRequest request, @RequestParam Map params,  HttpSession session) {
@@ -198,10 +196,9 @@ public class FileBoardService {
 	
 	/**
 	 * 게시글 업데이트
-	 * @param request
-	 * @param params
-	 * @param session
-	 * @return
+	 * @param fileBoardDto
+	 * @param session(userId, name)
+	 * @return int threadNo(글번호)
 	 */
 	@Transactional
 	public Long setBoardUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
@@ -216,9 +213,7 @@ public class FileBoardService {
 	
 	/**
 	 * 게시글 삭제
-	 * @param request
-	 * @param params
-	 * @param session
+	 * @param int nowThread
 	 */
 	public void setBoardDelete(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
 		
@@ -233,7 +228,7 @@ public class FileBoardService {
 	 * 게시글 저장을 위한 dto포장
 	 * @param request
 	 * @param params
-	 * @return
+	 * @return fileBoardDto
 	 */
 	public FileBoardDto putWriteDto(HttpServletRequest request, @RequestParam Map params) {
 		FileBoardDto dto = new FileBoardDto();
@@ -251,7 +246,7 @@ public class FileBoardService {
 	 * 게시글 업데이트를 위한 dto포장
 	 * @param request
 	 * @param params
-	 * @return
+	 * @return fileBoardDto
 	 */
 	public FileBoardDto putUpdateDto(HttpServletRequest request, @RequestParam Map params) {
 		FileBoardDto dto = new FileBoardDto();

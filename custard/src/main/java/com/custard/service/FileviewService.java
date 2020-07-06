@@ -34,7 +34,8 @@ public class FileviewService {
 
 	/**
 	 * 파일리스트 출력
-	 * 
+	 * @param String path
+	 * @param String folder
 	 * @return Map fileList
 	 */
 	public Map getFileList(String path, String folder) {
@@ -99,7 +100,8 @@ public class FileviewService {
 
 	/**
 	 * 토렌트 파일리스트 출력
-	 * 
+	 * @param String path
+	 * @param String folder
 	 * @return map torrentFileList
 	 */
 	public Map getTorrentFileList(String path, String folder) {
@@ -168,9 +170,6 @@ public class FileviewService {
 
 	/**
 	 * 파일 업로드
-	 * 
-	 * @param fileThread
-	 * @param fileUploader
 	 * @param files
 	 */
 	public void setFile(List<MultipartFile> files) {
@@ -198,9 +197,8 @@ public class FileviewService {
 
 	/**
 	 * 파일 다운로드
-	 * 
-	 * @param request
-	 * @param response
+	 * @param request User-Agent
+	 * @param String fileName
 	 */
 	public void getFile(HttpServletRequest request, HttpServletResponse response, String fileName) {
 
@@ -266,9 +264,7 @@ public class FileviewService {
 	
 	/**
 	 * 파일 삭제
-	 * 
-	 * @param request
-	 * @param response
+	 * @param String fileName
 	 */
 	public void deleteFile(HttpServletRequest request, HttpServletResponse response) {
 		String fileName = request.getParameter("fileName");
@@ -293,8 +289,7 @@ public class FileviewService {
 	
 	/**
 	 * 폴더 다운로드 카운터
-	 * @param request
-	 * @param response
+	 * @param String folderName
 	 */
 	public int getFilesCount(HttpServletRequest request, HttpServletResponse response, String folderName) {
 		File folder = new File(ROUTE, folderName);
@@ -314,10 +309,8 @@ public class FileviewService {
 	
 	/**
 	 * 폴더 다운로드
-	 * @param request
-	 * @param response
-	 * @param folderName
-	 * @param Counter
+	 * @param String folderName
+	 * @param int Counter
 	 */
 	public void getFiles(HttpServletRequest request, HttpServletResponse response, String folderName, int count) {
 		File folder = new File(ROUTE, folderName);
