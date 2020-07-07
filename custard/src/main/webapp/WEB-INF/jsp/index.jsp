@@ -8,17 +8,21 @@
 <title>custard</title>
 
 <style type="text/css">
+/* index페이지 main 버튼 일체 */
 .btnIndex {
 	margin : 15px 0px 15px 0px;
 }
+/* index페이지 main버튼 설명문 */
 .textIndex {
 	font-size : 22px;
 }
+/* index main버튼 div 관리 */
 .btnIndexDiv {
 	height : 170px;
 	margin : -3px;
 	cursor : pointer;
 }
+/* 시계 div추가제어 */
 .clockDiv {
 	border : 3px solid #eee;
 	border-radius : 10px;
@@ -101,7 +105,7 @@ function selectClocker(){
 	clock2();
 }
 
-//쿠키 저장
+//선택한 세계시간 쿠키 저장
 function setCookie(cookieName, value, exdays){
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
