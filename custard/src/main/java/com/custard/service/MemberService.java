@@ -41,7 +41,7 @@ public class MemberService {
 	/**
 	 * 회원가입 구현
 	 * @param memberDto
-	 * @return Long id
+	 * @return Long id || -1: 아이디 중복, -2: 이름 중복, -3: 이메일 중복
 	 * @throws Exception
 	 */
 	@Transactional
@@ -94,6 +94,67 @@ public class MemberService {
 		dto.setPassword(cryptoPassword);
 		
 		logger.debug("user join dto(crypt) >>> {}", dto);
+		return memberRepo.save(dto.toEntity()).getId();
+	}
+	
+	/**
+	 * 비밀번호 확인
+	 * @param String password
+	 * @param session String userId
+	 * @return int 1 || int 0: 패스워드 오류 
+	 */
+	public int getPassTest(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		String password = request.getParameter("password");
+		MemberDto dto = modelMapper.map(memberRepo.findByUserId(session.getAttribute("userId").toString()), MemberDto.class);
+		String getPass = dto.getPassword();
+		
+		//입력한 패스워드가 같을 경우 return 1 아닐 경우 return 0
+		if(password.equals(getPass)) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
+	/**
+	 * 회원정보 수정
+	 * @param String userId, String password, String email, int level
+	 * @param session String userId
+	 * @return Long id || -1: 사용자 아이디 오류, -2: 닉네임 중복
+	 */
+	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		MemberDto dto = insertDto(request, params);
+		MemberDto old = modelMapper.map(memberRepo.findByUserId(session.getAttribute("userId").toString()), MemberDto.class);
+		
+		if(!dto.getId().equals(old.getId())) {
+			//다른 아이디값 입력시
+			return (long) -1;
+		}else if(!dto.getUserId().equals(old.getUserId())) {
+			return (long) -1;
+		}
+		
+		//이름값이 다르다면
+		if(!dto.getName().equals(old.getName())) {
+			//이름 중복검사
+			MemberDto nameTest = modelMapper.map(memberRepo.findByName(dto.getName()), MemberDto.class);
+			logger.debug("name test >>> {}", nameTest);
+			if(nameTest != null) {
+				return (long) -2; 
+			}else {
+				logger.debug("name check >>> OK");
+			}
+		}
+		//이메일값이 다르다면
+		if(!dto.getEmail().equals(old.getEmail())) {
+			//이메일 중복검사
+			MemberDto emailTest = modelMapper.map(memberRepo.findByEmail(dto.getEmail()), MemberDto.class);
+			logger.debug("email test >>> {}", emailTest);
+			if(emailTest != null) {
+				return (long) -3;
+			}else {
+				logger.debug("email check >>> OK");
+			}
+		}
 		return memberRepo.save(dto.toEntity()).getId();
 	}
 	
