@@ -60,6 +60,33 @@ public class MemberController {
 	}
 	
 	/**
+	 * 회원정보변경 페이지 로드
+	 * @param String password
+	 * @param session String userId
+	 * @return 회원정보변경 페이지 || index페이지 리턴
+	 */
+	public String getMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		
+		int test = memberService.getPassTest(request, params, session);
+		
+		if(test == 1) {
+			return "";
+		}else {
+			return "redirect:/";
+		}
+	}
+	
+	/**
+	 * 회원정보변경
+	 * @param String userId, String password, String email, int level
+	 * @param session String userId
+	 * @return Long id || -1: 사용자 아이디 오류, -2: 닉네임 중복
+	 */
+	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		return memberService.setMemberUpdate(request, params, session);
+	}
+	
+	/**
 	 * 로그인
 	 * @param request
 	 * @param params
