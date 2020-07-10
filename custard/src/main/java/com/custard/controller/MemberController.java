@@ -65,6 +65,7 @@ public class MemberController {
 	 * @param session String userId
 	 * @return 회원정보변경 페이지 || index페이지 리턴
 	 */
+	@RequestMapping(value = "modify", method = RequestMethod.POST)
 	public String getMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
 		
 		int test = memberService.getPassTest(request, params, session);
@@ -82,6 +83,7 @@ public class MemberController {
 	 * @param session String userId
 	 * @return Long id || -1: 사용자 아이디 오류, -2: 닉네임 중복
 	 */
+	@RequestMapping(value = "update", method = RequestMethod.PATCH)
 	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
 		return memberService.setMemberUpdate(request, params, session);
 	}

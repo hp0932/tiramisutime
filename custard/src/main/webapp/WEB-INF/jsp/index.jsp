@@ -64,7 +64,12 @@ $(document).ready(function(){
 	$('#downloader').click(function(){
 		location.href='/fileview/downloader'
 	});
-
+	
+	//회원정보수정
+	$('#btnPasswordTest').click(function(){
+		location.href='/member/modify'
+	});
+	
 	//시계 시작 로딩
 	clock1();
 	clock2();
@@ -136,7 +141,7 @@ function setCookie(cookieName, value, exdays){
 	<!-- 관리모듈 이미지 : 권한 사용자가 아닐 경우 -->
 		<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
 			<div id="adminImg" class="text-center btnIndexDiv">
-				<span class="glyphicon glyphicon-inbox" style="font-size:100px;"></span><br>
+				<span class="glyphicon glyphicon-picture" style="font-size:100px;"></span><br>
 				<span class="textIndex text-center">관리모듈 이미지</span>
 			</div>
 		</div>
@@ -166,6 +171,33 @@ function setCookie(cookieName, value, exdays){
 			<div id="downloader" class="text-center btnIndexDiv">
 				<span class="glyphicon glyphicon-download" style="font-size:100px;"></span><br>
 				<span class="textIndex text-center">다운로더</span>
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${sessionScope.level ne null}">
+	<!-- 회원정보수정 : 회원일 경우 -->
+		<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
+			<div id="userModify" class="text-center btnIndexDiv" data-toggle="modal" data-target="#userModal">
+				<span class="glyphicon glyphicon-list-alt" style="font-size:100px;"></span><br>
+				<span class="textIndex text-center">회원정보수정</span>
+			</div>
+		</div>
+		<!-- 회원정보수정 모달창 -->
+		<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="userModalLabel">비밀번호를 입력해주세요</h4>
+					</div>
+					<div class="modal-body">
+						<input type="password" id="userPasswordTest" class="form-control">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
+						<button id="btnPasswordTest" class="btn btn-success">확인</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</c:if>
