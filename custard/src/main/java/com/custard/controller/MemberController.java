@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.custard.dto.MemberDto;
 import com.custard.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -52,7 +53,7 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "commit",  method = RequestMethod.POST)
-	public Long setMemberJoin(HttpServletRequest request, @RequestParam Map params,  ModelMap map) throws Exception {
+	public Long setMemberJoin(HttpServletRequest request, @RequestParam Map params, ModelMap map) throws Exception {
 		
 		Long result = memberService.setMemberJoin(request, params);
 		
@@ -66,12 +67,17 @@ public class MemberController {
 	 * @return 회원정보변경 페이지 || index페이지 리턴
 	 */
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
-	public String getMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+	public String getMemberUpdate(HttpServletRequest request, @RequestParam Map params, ModelMap map, HttpSession session) {
 		
 		int test = memberService.getPassTest(request, params, session);
+		MemberDto dto = memberService.getOneUser(request, params, session);
+		
+		map.addAttribute("userId", dto.getUserId());
+		map.addAttribute("name", dto.getName());
+		map.addAttribute("email", dto.getEmail());
 		
 		if(test == 1) {
-			return "";
+			return "member/update";
 		}else {
 			return "redirect:/";
 		}

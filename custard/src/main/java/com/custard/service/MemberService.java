@@ -117,21 +117,27 @@ public class MemberService {
 	}
 	
 	/**
+	 * 유저정보 가져오기
+	 * @param session String userId
+	 * @return memberDto
+	 */
+	public MemberDto getOneUser(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		String userId = session.getAttribute("userId").toString();
+		return modelMapper.map(memberRepo.findByUserId(userId), MemberDto.class);
+	}
+	
+	/**
 	 * 회원정보 수정
 	 * @param String userId, String password, String email, int level
 	 * @param session String userId
-	 * @return Long id || -1: 사용자 아이디 오류, -2: 닉네임 중복
+	 * @return Long id || -1: 사용자 아이디 오류, -2: 닉네임 중복, -3: 이메일 중복
 	 */
 	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
 		MemberDto dto = insertDto(request, params);
 		MemberDto old = modelMapper.map(memberRepo.findByUserId(session.getAttribute("userId").toString()), MemberDto.class);
 		
-		if(!dto.getId().equals(old.getId())) {
-			//다른 아이디값 입력시
-			return (long) -1;
-		}else if(!dto.getUserId().equals(old.getUserId())) {
-			return (long) -1;
-		}
+		//아이디값 다시 집어넣기.
+		dto.setId(old.getId());
 		
 		//이름값이 다르다면
 		if(!dto.getName().equals(old.getName())) {
