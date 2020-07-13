@@ -117,7 +117,7 @@ public class MemberService {
 	}
 	
 	/**
-	 * 유저정보 가져오기
+	 * 회원정보 단건조회
 	 * @param session String userId
 	 * @return memberDto
 	 */
@@ -136,7 +136,7 @@ public class MemberService {
 		MemberDto dto = insertDto(request, params);
 		MemberDto old = modelMapper.map(memberRepo.findByUserId(session.getAttribute("userId").toString()), MemberDto.class);
 		
-		//아이디값 다시 집어넣기.
+		//아이디값 다시 집어넣기(아이디는 변경되어서는 안됨)
 		dto.setId(old.getId());
 		
 		//이름값이 다르다면

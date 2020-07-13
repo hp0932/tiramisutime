@@ -69,7 +69,9 @@ public class MemberController {
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
 	public String getMemberUpdate(HttpServletRequest request, @RequestParam Map params, ModelMap map, HttpSession session) {
 		
+		//password 테스트 int 1 || int 0: 패스워드 오류 
 		int test = memberService.getPassTest(request, params, session);
+		//유저 단건조회
 		MemberDto dto = memberService.getOneUser(request, params, session);
 		
 		map.addAttribute("userId", dto.getUserId());
