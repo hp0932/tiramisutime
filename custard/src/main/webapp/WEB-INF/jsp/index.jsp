@@ -66,9 +66,9 @@ $(document).ready(function(){
 	});
 	
 	//회원정보수정
-	$('#btnPasswordTest').click(function(){
+	/* $('#btnPasswordTest').click(function(){
 		location.href='/member/modify'
-	});
+	}); */
 	
 	//시계 시작 로딩
 	clock1();
@@ -185,19 +185,21 @@ function setCookie(cookieName, value, exdays){
 		<!-- 회원정보수정 모달창 -->
 		<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
 			<div class="modal-dialog" role="document">
+			<form name="passTestForm" method="post" action="/member/modify">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title" id="userModalLabel">비밀번호를 입력해주세요</h4>
 					</div>
 					<div class="modal-body">
-						<input type="password" id="userPasswordTest" class="form-control">
+						<input type="password" name="password" id="userPasswordTest" class="form-control">
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-warning" data-dismiss="modal">취소</button>
 						<button id="btnPasswordTest" class="btn btn-success">확인</button>
 					</div>
 				</div>
+			</form>
 			</div>
 		</div>
 	</c:if>

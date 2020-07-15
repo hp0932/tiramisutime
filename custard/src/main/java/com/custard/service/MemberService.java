@@ -27,6 +27,7 @@ import com.custard.repository.MemberRepository;
 public class MemberService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberService.class);
+	private static final CryptoUtil crypto = new CryptoUtil();
 	private static final int DEFAULT_LEVEL = 1;
 	
 	@Autowired
@@ -89,7 +90,6 @@ public class MemberService {
 			logger.debug("email test exception catch");
 		}
 		
-		CryptoUtil crypto = new CryptoUtil();
 		String cryptoPassword = crypto.AES_Encode(dto.getPassword());
 		dto.setPassword(cryptoPassword);
 		
@@ -104,10 +104,19 @@ public class MemberService {
 	 * @return int 1 || int 0: 패스워드 오류 
 	 */
 	public int getPassTest(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
-		String password = request.getParameter("password");
+		String password = "";
+		try {
+			password = crypto.AES_Encode(request.getParameter("password"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		MemberDto dto = modelMapper.map(memberRepo.findByUserId(session.getAttribute("userId").toString()), MemberDto.class);
 		String getPass = dto.getPassword();
 		
+		//패스워드를 입력하지 않았을 경우
+		if(password == null) {
+			return 0;
+		}
 		//입력한 패스워드가 같을 경우 return 1 아닐 경우 return 0
 		if(password.equals(getPass)) {
 			return 1;
@@ -132,35 +141,51 @@ public class MemberService {
 	 * @param session String userId
 	 * @return Long id || -1: 사용자 아이디 오류, -2: 닉네임 중복, -3: 이메일 중복
 	 */
-	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
-		MemberDto dto = insertDto(request, params);
+	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) throws Exception {
 		MemberDto old = modelMapper.map(memberRepo.findByUserId(session.getAttribute("userId").toString()), MemberDto.class);
-		
+		MemberDto dto = updateDto(request, params, old);
+
 		//아이디값 다시 집어넣기(아이디는 변경되어서는 안됨)
 		dto.setId(old.getId());
 		
-		//이름값이 다르다면
-		if(!dto.getName().equals(old.getName())) {
-			//이름 중복검사
-			MemberDto nameTest = modelMapper.map(memberRepo.findByName(dto.getName()), MemberDto.class);
-			logger.debug("name test >>> {}", nameTest);
-			if(nameTest != null) {
-				return (long) -2; 
-			}else {
-				logger.debug("name check >>> OK");
+		
+		try {
+			//이름값이 다르다면
+			if(!dto.getName().equals(old.getName())) {
+				//이름 중복검사
+				MemberDto nameTest = modelMapper.map(memberRepo.findByName(dto.getName()), MemberDto.class);
+				logger.debug("name test >>> {}", nameTest);
+				if(nameTest != null) {
+					return (long) -2; 
+				}else {
+					logger.debug("name check >>> OK");
+				}
 			}
+		} catch (Exception e) {
+			logger.debug("name test exception catch");
 		}
-		//이메일값이 다르다면
-		if(!dto.getEmail().equals(old.getEmail())) {
-			//이메일 중복검사
-			MemberDto emailTest = modelMapper.map(memberRepo.findByEmail(dto.getEmail()), MemberDto.class);
-			logger.debug("email test >>> {}", emailTest);
-			if(emailTest != null) {
-				return (long) -3;
-			}else {
-				logger.debug("email check >>> OK");
+		try {
+			//이메일값이 다르다면
+			if(!dto.getEmail().equals(old.getEmail())) {
+				//이메일 중복검사
+				MemberDto emailTest = modelMapper.map(memberRepo.findByEmail(dto.getEmail()), MemberDto.class);
+				logger.debug("email test >>> {}", emailTest);
+				if(emailTest != null) {
+					return (long) -3;
+				}else {
+					logger.debug("email check >>> OK");
+				}
 			}
+		} catch (Exception e) {
+			logger.debug("email test exception catch");
 		}
+		
+		String cryptoPassword = crypto.AES_Encode(dto.getPassword());
+		dto.setPassword(cryptoPassword);
+		
+		//세션 삭제
+		session.invalidate();
+		
 		return memberRepo.save(dto.toEntity()).getId();
 	}
 	
@@ -173,8 +198,6 @@ public class MemberService {
 	 */
 	public int getLogin(HttpServletRequest request, @RequestParam Map params, HttpSession session) throws Exception {
 		int level = -1;
-		
-		CryptoUtil crypto = new CryptoUtil();
 		
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
@@ -294,7 +317,28 @@ public class MemberService {
 		dto.setEmail(request.getParameter("email"));
 		dto.setName(request.getParameter("name"));
 		dto.setLevel(DEFAULT_LEVEL);
+
+		return dto;
+	}
+	
+	/**
+	 * 회원정보수정을 위한 DTO처리
+	 * @param MemberDto oldDto
+	 * @param String password
+	 * @param String email
+	 * @param String name
+	 * @return DTO에 자료를 담아 return
+	 */
+	public MemberDto updateDto(HttpServletRequest request, @RequestParam Map params, MemberDto oldDto) {
+		MemberDto dto = new MemberDto();
 		
+		dto.setId(oldDto.getId());
+		dto.setUserId(oldDto.getUserId());
+		dto.setPassword(request.getParameter("password"));
+		dto.setEmail(request.getParameter("email"));
+		dto.setName(request.getParameter("name"));
+		dto.setLevel(oldDto.getLevel());
+		logger.debug("dto >>> {}", dto);
 		return dto;
 	}
 }

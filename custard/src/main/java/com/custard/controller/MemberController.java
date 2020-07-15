@@ -91,8 +91,9 @@ public class MemberController {
 	 * @param session String userId
 	 * @return Long id || -1: 사용자 아이디 오류, -2: 닉네임 중복
 	 */
-	@RequestMapping(value = "update", method = RequestMethod.PATCH)
-	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+	@ResponseBody
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public Long setMemberUpdate(HttpServletRequest request, @RequestParam Map params, HttpSession session) throws Exception {
 		return memberService.setMemberUpdate(request, params, session);
 	}
 	
