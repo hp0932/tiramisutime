@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+	
+	@Value("${first}")
+	private String first;
 
 	/**
 	 * welcome페이지 출력
@@ -25,7 +29,7 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "/",  method = RequestMethod.GET)
 	public String goIndex(HttpServletRequest request, @RequestParam Map params) {
-		logger.debug("indexController first loaded");
+		logger.debug(first);
 		return "index";
 	}
 	

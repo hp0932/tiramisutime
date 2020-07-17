@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,6 +39,11 @@ public class MemberService {
 	
 	@Autowired
 	ModelMapper modelMapper;
+	
+	@Value("${adminmail}")
+	private String adminmail;
+	@Value("${adminpass}")
+	private String adminpass;
 	
 	/**
 	 * 회원가입 구현
