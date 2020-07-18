@@ -97,6 +97,9 @@ public class MemberController {
 		return memberService.setMemberUpdate(request, params, session);
 	}
 	
+	public int setEmailCode(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		return -1;
+	}
 	/**
 	 * 로그인
 	 * @param request

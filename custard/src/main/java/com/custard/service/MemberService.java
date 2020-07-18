@@ -196,6 +196,30 @@ public class MemberService {
 	}
 	
 	/**
+	 * 이메일 입력
+	 * @param String email
+	 * @return 0: 정상처리 || -1: 없는 이메일
+	 */
+	public int setEmailCode(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		String email = request.getParameter("email");
+		
+		try {
+			//이메일 중복검사
+			MemberDto emailTest = modelMapper.map(memberRepo.findByEmail(email), MemberDto.class);
+			logger.debug("email test >>> {}", emailTest);
+			if(email == null) {
+				return -1;
+			}else {
+				logger.debug("email check >>> OK");
+			}
+		} catch (Exception e) {
+			logger.debug("email test exception catch");
+		}
+		
+		return -1;
+	}
+	
+	/**
 	 * 로그인 구현
 	 * @param String userId
 	 * @param String password

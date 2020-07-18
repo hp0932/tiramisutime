@@ -31,6 +31,11 @@
 .clocker {
 	margin : 5px 0px 5px 0px;
 }
+/* 모달제어 */
+.modalStyle{
+	margin  : 0px;
+	padding : 0px;
+}
 </style>
 	
 <script type="text/javascript" charset="UTF-8">
@@ -74,6 +79,35 @@ $(document).ready(function(){
 	clock1();
 	clock2();
 });
+
+function searchId(){
+	var email = $("#searchIdEmail").val();
+	if(email.length == 0){
+		alert("이메일을 입력하세요");
+		$("#email").focus();
+		return;
+	} else if(email.indexOf("@") == -1 || email.indexOf(".") == -1){
+		alert("이메일을 형식에 맞게 입력하세요");
+		$("#email").focus();
+		return;
+	}
+	$.ajax({
+		url : '<c:url value="/member/search" />',
+		type : "POST",
+		data : {
+			'email' : email
+		},
+		success : function(result){
+			if(result == -1){
+				alert("가입되지 않은 이메일입니다.\n메일주소를 확인해주세요.");
+				return;
+			}else{
+				alert("메일로 코드가 발송되었습니다.\n코드를 입력해주세요.");
+				return;
+			}
+		}
+	});
+}
 
 //시계 1초마다 갱신
 setInterval(function(){clock1()}, 1000);
@@ -171,6 +205,44 @@ function setCookie(cookieName, value, exdays){
 			<div id="downloader" class="text-center btnIndexDiv">
 				<span class="glyphicon glyphicon-download" style="font-size:100px;"></span><br>
 				<span class="textIndex text-center">다운로더</span>
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${sessionScope.level eq null}">
+	<!-- 아이디 찾기 : 비회원일 경우 -->
+		<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
+			<div id="searchId" class="text-center btnIndexDiv" data-toggle="modal" data-target="#searchIdModal">
+				<span class="glyphicon glyphicon-list-alt" style="font-size:100px;"></span><br>
+				<span class="textIndex text-center">아이디 찾기</span>
+			</div>
+		</div>
+		<!-- 아이디찾기 모달창 -->
+		<div class="modal fade" id="searchIdModal" tabindex="-1" role="dialog" aria-labelledby="searchIdModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="userModalLabel">아이디 찾기</h4>
+					</div>
+					<div class="modal-body" style="height:150px;">
+						<div class="modalStyle col-xs-12 text-right">
+							<div class="modalStyle col-xs-12 text-left"><span>이메일 주소를 입력해주세요</span></div>
+							<div class="modalStyle col-xs-12" style="margin: 0px 0px 10px 0px;">
+								<div class="modalStyle col-lg-10 col-md-10 col-xs-9"><input name="searchIdEmail" id="searchIdEmail" class="form-control"></div>
+								<div class="modalStyle col-lg-2 col-md-2 col-xs-3"><button type="button" class="btn btn-info">메일발송</button></div>
+							</div>
+							<br>
+							<div class="modalStyle col-xs-12 text-left"><span>이메일로 발송된 코드를 입력해주세요</span></div>
+							<div class="modalStyle col-xs-12">
+								<div class="modalStyle col-lg-10 col-md-10 col-xs-9"><input name="searchIdCode" id="searchIdCode" class="form-control"></div>
+								<div class="modalStyle col-lg-2 col-md-2 col-xs-3"><button id="btnSearchIdCode" class="btn btn-success">코드확인</button></div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</c:if>
