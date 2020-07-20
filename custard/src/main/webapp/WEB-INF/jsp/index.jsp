@@ -80,7 +80,9 @@ $(document).ready(function(){
 	clock2();
 });
 
+//아이디찾기
 function searchId(){
+	//이메일을 입력받고 코드 발송
 	var email = $("#searchIdEmail").val();
 	if(email.length == 0){
 		alert("이메일을 입력하세요");
@@ -91,6 +93,7 @@ function searchId(){
 		$("#email").focus();
 		return;
 	}
+	//email주소로 난수값 발송
 	$.ajax({
 		url : '<c:url value="/member/search" />',
 		type : "POST",
