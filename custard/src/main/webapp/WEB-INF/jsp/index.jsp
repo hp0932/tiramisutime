@@ -70,10 +70,18 @@ $(document).ready(function(){
 		location.href='/fileview/downloader'
 	});
 	
-	//회원정보수정
-	/* $('#btnPasswordTest').click(function(){
-		location.href='/member/modify'
-	}); */
+	
+	//에러 테스트
+	if("${error}" != null){
+		var error = "${error}";
+		
+		//유저정보변경시 비밀번호 오류
+		if(error == "userModifyError"){
+			alert("비밀번호를 확인해주세요");
+			location.href='/'
+		}
+	}
+	
 	
 	//시계 시작 로딩
 	clock1();

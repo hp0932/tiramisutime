@@ -4,7 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -211,6 +218,7 @@ public class MemberService {
 				return -1;
 			}else {
 				logger.debug("email check >>> OK");
+				
 			}
 		} catch (Exception e) {
 			logger.debug("email test exception catch");
@@ -370,5 +378,44 @@ public class MemberService {
 		dto.setLevel(oldDto.getLevel());
 		logger.debug("dto >>> {}", dto);
 		return dto;
+	}
+	
+	/**
+	 * 메일발송 메서드
+	 */
+	public void mail() {
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", "smtp.gmail.com");
+		prop.put("mail.smtp.port", 465);
+		prop.put("mail.smtp.auth", "true");
+		prop.put("mail.smtp.ssl.enable", "true");
+		prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		
+		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(adminmail, adminpass);
+			}
+		});
+		
+		try {
+			MimeMessage message = new MimeMessage(session);
+			
+			//발신자 주소
+			message.setFrom(new InternetAddress(adminmail));
+			
+			//수신자 주소
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("hp0932@naver.com"));
+			
+			//제목
+			message.setSubject("제목입니다");
+			
+			//내용
+			message.setText("내용입니다");
+			
+			Transport.send(message);
+			logger.debug("메일 발송 완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
