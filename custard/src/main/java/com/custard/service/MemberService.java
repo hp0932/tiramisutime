@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -51,6 +52,12 @@ public class MemberService {
 	private String adminmail;
 	@Value("${adminpass}")
 	private String adminpass;
+	@Value("${searchIdTitle}")
+	private String searchIdTitle;
+	@Value("${searchIdContentFront}")
+	private String searchIdContentFront;
+	@Value("${searchIdContentEnd}")
+	private String searchIdContentEnd;
 	
 	/**
 	 * 회원가입 구현
@@ -218,13 +225,24 @@ public class MemberService {
 				return -1;
 			}else {
 				logger.debug("email check >>> OK");
+				String randNum = mathRan(6);
 				
+				//세션에 난수값 추가. 세션 제한시간 5분
+				session.setAttribute("searchIdRandNum", randNum);
+				session.setMaxInactiveInterval(60*5);
+				logger.debug("session save >>> OK");
+				
+				String content = searchIdContentFront + randNum + searchIdContentEnd;
+				logger.debug("content >>> {}", content);
+				mail(searchIdTitle, content, email);
+				logger.debug("mail send >>> OK");
+				return 0;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.debug("email test exception catch");
+			return -1;
 		}
-		
-		return -1;
 	}
 	
 	/**
@@ -382,8 +400,11 @@ public class MemberService {
 	
 	/**
 	 * 메일발송 메서드
+	 * @param String title
+	 * @param String content
+	 * @param String address
 	 */
-	public void mail() {
+	public void mail(String title, String content, String address) {
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");
 		prop.put("mail.smtp.port", 465);
@@ -404,18 +425,35 @@ public class MemberService {
 			message.setFrom(new InternetAddress(adminmail));
 			
 			//수신자 주소
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("hp0932@naver.com"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
 			
 			//제목
-			message.setSubject("제목입니다");
+			message.setSubject(title, "UTF-8");
 			
 			//내용
-			message.setText("내용입니다");
+			message.setText(content, "UTF-8");
 			
 			Transport.send(message);
 			logger.debug("메일 발송 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 난수생성기
+	 * @param int len(자릿수)
+	 * @return len자릿수의 난수값
+	 */
+	public String mathRan(int len) {
+		String ranNum = "";
+		Random ran = new Random();
+		
+		for (int i = 0; i < len; i++) {
+			int x = ran.nextInt(10);
+			ranNum += x;
+		}
+		
+		return ranNum;
 	}
 }

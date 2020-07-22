@@ -81,7 +81,8 @@ public class MemberController {
 		if(test == 1) {
 			return "member/update";
 		}else {
-			return "redirect:/";
+			map.addAttribute("error", "userModifyError");
+			return "index";
 		}
 	}
 	
@@ -97,9 +98,18 @@ public class MemberController {
 		return memberService.setMemberUpdate(request, params, session);
 	}
 	
+	/**
+	 * 아이디찾기
+	 * @param String email
+	 * @return 0: 정상처리 || -1: 없는 이메일
+	 */
+	@ResponseBody
+	@RequestMapping(value = "searchId", method = RequestMethod.POST)
 	public int setEmailCode(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
-		return -1;
+		return memberService.setEmailCode(request, params, session);
 	}
+	
+	
 	/**
 	 * 로그인
 	 * @param request

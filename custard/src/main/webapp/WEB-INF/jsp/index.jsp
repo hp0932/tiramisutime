@@ -40,6 +40,7 @@
 	
 <script type="text/javascript" charset="UTF-8">
 $(document).ready(function(){
+	/* 메인메뉴 */
 	//자유게시판
 	$('#freeBoard').click(function(){
 		location.href='/board/list'
@@ -68,6 +69,12 @@ $(document).ready(function(){
 	//파일 다운로더
 	$('#downloader').click(function(){
 		location.href='/fileview/downloader'
+	});
+	/* 메인메뉴 */
+	
+	//아이디찾기 메일발송
+	$('#btnSearchIdMail').click(function(){
+		searchId();
 	});
 	
 	
@@ -103,7 +110,7 @@ function searchId(){
 	}
 	//email주소로 난수값 발송
 	$.ajax({
-		url : '<c:url value="/member/search" />',
+		url : '<c:url value="/member/searchId" />',
 		type : "POST",
 		data : {
 			'email' : email
@@ -113,7 +120,7 @@ function searchId(){
 				alert("가입되지 않은 이메일입니다.\n메일주소를 확인해주세요.");
 				return;
 			}else{
-				alert("메일로 코드가 발송되었습니다.\n코드를 입력해주세요.");
+				alert("메일로 코드가 발송되었습니다.\n코드는 5분간 유효합니다.");
 				return;
 			}
 		}
@@ -240,10 +247,10 @@ function setCookie(cookieName, value, exdays){
 							<div class="modalStyle col-xs-12 text-left"><span>이메일 주소를 입력해주세요</span></div>
 							<div class="modalStyle col-xs-12" style="margin: 0px 0px 10px 0px;">
 								<div class="modalStyle col-lg-10 col-md-10 col-xs-9"><input name="searchIdEmail" id="searchIdEmail" class="form-control"></div>
-								<div class="modalStyle col-lg-2 col-md-2 col-xs-3"><button type="button" class="btn btn-info">메일발송</button></div>
+								<div class="modalStyle col-lg-2 col-md-2 col-xs-3"><button id="btnSearchIdMail" type="button" class="btn btn-info">메일발송</button></div>
 							</div>
 							<br>
-							<div class="modalStyle col-xs-12 text-left"><span>이메일로 발송된 코드를 입력해주세요</span></div>
+							<div class="modalStyle col-xs-12 text-left"><span>이메일로 발송된 코드를 입력해주세요.</span></div>
 							<div class="modalStyle col-xs-12">
 								<div class="modalStyle col-lg-10 col-md-10 col-xs-9"><input name="searchIdCode" id="searchIdCode" class="form-control"></div>
 								<div class="modalStyle col-lg-2 col-md-2 col-xs-3"><button id="btnSearchIdCode" class="btn btn-success">코드확인</button></div>
