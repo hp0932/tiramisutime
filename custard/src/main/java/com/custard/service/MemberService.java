@@ -156,6 +156,15 @@ public class MemberService {
 	}
 	
 	/**
+	 * 회원정보 단건조회(email)
+	 * @param String email
+	 * @return memberDto
+	 */
+	public MemberDto getOneUserEmail(String email) {
+		return modelMapper.map(memberRepo.findByEmail(email), MemberDto.class);
+	}
+	
+	/**
 	 * 회원정보 수정
 	 * @param String userId, String password, String email, int level
 	 * @param session String userId
@@ -212,7 +221,7 @@ public class MemberService {
 	/**
 	 * 이메일 입력
 	 * @param String email
-	 * @return 0: 정상처리 || -1: 없는 이메일
+	 * @return 0: 정상처리 || -1: 없는 이메일 || -2: 에러 발생
 	 */
 	public int setEmailCode(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
 		String email = request.getParameter("email");
@@ -241,7 +250,7 @@ public class MemberService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("email test exception catch");
-			return -1;
+			return -2;
 		}
 	}
 	

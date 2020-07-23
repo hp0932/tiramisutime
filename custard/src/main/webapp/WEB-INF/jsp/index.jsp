@@ -77,6 +77,10 @@ $(document).ready(function(){
 		searchId();
 	});
 	
+	//아이디찾기 코드입력
+	$('#btnSearchIdCode').click(function(){
+		searchIdCode();
+	});
 	
 	//에러 테스트
 	if("${error}" != null){
@@ -123,8 +127,36 @@ function searchId(){
 				alert("메일로 코드가 발송되었습니다.\n코드는 5분간 유효합니다.");
 				return;
 			}
+		},
+		beforeSend : function(){
+			$('#btnSearchIdMail').addClass('display-none');
+			$('#mailSendLoading').removeClass('display-none');
+			$('.wrap-loading').removeClass('display-none');
+		},
+		complete : function(){
+			$('#btnSearchIdMail').removeClass('display-none');
+			$('#mailSendLoading').addClass('display-none');
+			$('.wrap-loading').addClass('display-none');
 		}
 	});
+}
+
+//테스트 이후 회원정보변경 페이지로 이동요청
+function searchIdCode(){
+	var code = $("#searchIdCode").val();
+	var email = $("#searchIdEmail").val();
+	
+	var data = $('<form></form>');
+	//HTML5 표준 : document에 추가되지 않은 form의 submit은 중단
+	$('.container-fluid').append(data);
+	data.attr('name', 'searchIdCodeForm');
+	data.attr('method','POST');
+	data.attr('action', "<c:url value='/member/searchIdCode'/>");
+	
+	data.append($('<input/>', {type: 'hidden', name: 'code', value: code}));
+	data.append($('<input/>', {type: 'hidden', name: 'email', value: email}));
+	data.submit();
+	
 }
 
 //시계 1초마다 갱신
@@ -247,7 +279,10 @@ function setCookie(cookieName, value, exdays){
 							<div class="modalStyle col-xs-12 text-left"><span>이메일 주소를 입력해주세요</span></div>
 							<div class="modalStyle col-xs-12" style="margin: 0px 0px 10px 0px;">
 								<div class="modalStyle col-lg-10 col-md-10 col-xs-9"><input name="searchIdEmail" id="searchIdEmail" class="form-control"></div>
-								<div class="modalStyle col-lg-2 col-md-2 col-xs-3"><button id="btnSearchIdMail" type="button" class="btn btn-info">메일발송</button></div>
+								<div class="modalStyle col-lg-2 col-md-2 col-xs-3">
+									<button id="btnSearchIdMail" type="button" class="btn btn-info">메일발송</button>
+									<button id="mailSendLoading" class="btn display-none">발송중</button>
+								</div>
 							</div>
 							<br>
 							<div class="modalStyle col-xs-12 text-left"><span>이메일로 발송된 코드를 입력해주세요.</span></div>

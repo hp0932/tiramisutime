@@ -101,7 +101,7 @@ public class MemberController {
 	/**
 	 * 아이디찾기
 	 * @param String email
-	 * @return 0: 정상처리 || -1: 없는 이메일
+	 * @return 0: 정상처리 || -1: 없는 이메일 || -2: 에러발생
 	 */
 	@ResponseBody
 	@RequestMapping(value = "searchId", method = RequestMethod.POST)
@@ -109,6 +109,28 @@ public class MemberController {
 		return memberService.setEmailCode(request, params, session);
 	}
 	
+	/**
+	 * 아이디찾기 회원정보변경페이지 로드
+	 * @param session String code
+	 * @return 회원정보변경페이지 || index페이지
+	 */
+	@RequestMapping(value = "searchIdCode", method = RequestMethod.POST)
+	public String setSearchIdCode(HttpServletRequest request, @RequestParam Map params, ModelMap map, HttpSession session) {
+		String originCode = session.getAttribute("searchIdRandNum").toString();
+		String code = request.getParameter("code");
+		String email = request.getParameter("email");
+		
+		if(code.equals(originCode)) {
+			MemberDto dto = memberService.getOneUserEmail(email);
+			map.addAttribute("userId", dto.getUserId());
+			map.addAttribute("name", dto.getName());
+			map.addAttribute("email", dto.getEmail());
+			return "member/update";
+		}else {
+			map.addAttribute("error", "searchIdCodeError");
+			return "index";
+		}
+	}
 	
 	/**
 	 * 로그인
