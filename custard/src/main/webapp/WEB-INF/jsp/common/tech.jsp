@@ -95,6 +95,12 @@
 				<div class="col-xs-5 text-center">9.0.30</div>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<div class="col-xs-7 text-center" style="border-right:1px dotted gray;">JavaMail API</div>
+				<div class="col-xs-5 text-center">1.4.7</div>
+			</td>
+		</tr>
 		<tr><td></td></tr>
 	</table>
 

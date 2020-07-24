@@ -102,7 +102,7 @@ $(document).ready(function(){
 				}
 			},
 			error : function (XMLHttpRequest, textStatus, errorThrown){
-				alert('가입에 실패하였습니다 \n'+XMLHttpRequest.responseText);
+				alert('회원정보 변경에 실패하였습니다 \n'+XMLHttpRequest.responseText);
 			}
 		});
 	});

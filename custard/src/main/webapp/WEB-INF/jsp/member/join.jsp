@@ -14,12 +14,15 @@
 
 
 <style type="text/css">
-	#joinForm{
-		background-color: rgb(242, 245, 247);
-		border: 5px solid rgb(255, 255, 255);
-		border-radius: 15px;
-		position: relative;
-	}
+.display-none {
+	display: none;
+}
+#joinForm {
+	background-color: rgb(242, 245, 247);
+	border: 5px solid rgb(255, 255, 255);
+	border-radius: 15px;
+	position: relative;
+}
 </style>
 
 
@@ -130,9 +133,9 @@ $(document).ready(function(){
 	<br/>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3 col-xs-1">
+			<div class="col-lg-3 col-md-2 col-xs-1">
 			</div>
-			<div class="col-md-6 col-xs-10">
+			<div class="col-lg-6 col-md-8 col-xs-10">
 				<form id="joinForm" name="joinForm" enctype="multipart/form-data">
 					<br />
 					<font size="7px">가입을 환영합니다</font>
@@ -155,16 +158,26 @@ $(document).ready(function(){
 						</tr>
 						<tr>
 							<td>이메일 : </td>
-							<td><input class="form-control" type="text" id="email" name="email" maxlength="45"></td>
+							<td>
+								<div class="col-xs-12" style="padding:0px;">
+									<div class="col-lg-10 col-md-10 col-xs-10" style="padding:0px;"><input class="form-control" type="text" id="email" name="email" maxlength="45"></div>
+									<div class="col-lg-2 col-md-2 col-xs-2" style="padding:0px;"><button class="btn btn-info" style="margin-left:5px;">발송</button></div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>확인코드 : </td>
+							<td><input class="form-control" type="text" id="code" name="code" maxlength="45"></td>
 						</tr>
 					</table>
 				</form>
 				<div class="text-right" style="padding-right:10px;">
 					<button id="btnBack" class="btn btn-warning">가입취소</button>
-					<button id="btnJoin" class="btn btn-success">회원가입</button>
+					<button id="btnJoin" class="btn btn-success display-none">회원가입</button>
+					<button id="btnJoinDummy" class="btn">회원가입</button>
 				</div>
 			</div>
-			<div class="col-md-3 col-xs-1">
+			<div class="col-lg-3 col-md-2 col-xs-1">
 			</div>
 		</div>
 	</div>

@@ -26,6 +26,27 @@
 .container-fluid {
 	margin : 0px 30px 0px 30px;
 }
+
+.wrap-loading {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.2);
+}
+/* 로딩 이미지 */
+.wrap-loading div {
+	position: fixed;
+	top:50%;
+	left:50%;
+	margin-left: -100px;
+	margin-top: -100px;
+}
+/* 기본적으로 감출때 사용 */
+.display-none {
+	display: none;
+}
 </style>
 
 <script type="text/javascript">
@@ -117,6 +138,9 @@ function getParameterByName(name) {
 	</div>
 	<div class="col-xs-12 text-center">
 		<h2>ready custard</h2>
+	</div>
+	<div class="wrap-loading display-none">
+		<div><img src="static/img/loading.gif"></div>
 	</div>
 </div>
 </body>
