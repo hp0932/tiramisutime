@@ -44,6 +44,20 @@ public class MemberController {
 	}
 	
 	/**
+	 * 회원가입 이메일 확인
+	 * @param request
+	 * @param params
+	 * @param map
+	 * @param session
+	 * @return 0: 성공 || -1: 중복, -2: 오류
+	 */
+	@ResponseBody
+	@RequestMapping(value = "joinCode", method = RequestMethod.POST)
+	public int setJoinEmailCode(HttpServletRequest request, @RequestParam Map params, ModelMap map, HttpSession session) {
+		return memberService.setJoinEmailCode(request, params, session);
+	}
+	
+	/**
 	 * 회원가입
 	 * @param request
 	 * @param params
@@ -125,6 +139,7 @@ public class MemberController {
 			map.addAttribute("userId", dto.getUserId());
 			map.addAttribute("name", dto.getName());
 			map.addAttribute("email", dto.getEmail());
+			session.setAttribute("userId", dto.getUserId());
 			return "member/update";
 		}else {
 			map.addAttribute("error", "searchIdCodeError");

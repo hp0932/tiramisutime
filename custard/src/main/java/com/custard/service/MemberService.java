@@ -52,12 +52,16 @@ public class MemberService {
 	private String adminmail;
 	@Value("${adminpass}")
 	private String adminpass;
+	
 	@Value("${searchIdTitle}")
 	private String searchIdTitle;
 	@Value("${searchIdContentFront}")
 	private String searchIdContentFront;
 	@Value("${searchIdContentEnd}")
 	private String searchIdContentEnd;
+	
+	@Value("${joinTitle}")
+	private String joinTitle;
 	
 	/**
 	 * 회원가입 구현
@@ -115,6 +119,41 @@ public class MemberService {
 		
 		logger.debug("user join dto(crypt) >>> {}", dto);
 		return memberRepo.save(dto.toEntity()).getId();
+	}
+	
+	/**
+	 * 이메일 확인
+	 * @param String email
+	 * @return 0: 성공 || -1: 중복, -2: 오류
+	 */
+	public int setJoinEmailCode(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		String email = request.getParameter("email");
+		
+		try {
+			//이메일 중복검사
+			MemberDto emailTest = modelMapper.map(memberRepo.findByEmail(email), MemberDto.class);
+			logger.debug("email test >>> {}", emailTest);
+			if(emailTest != null) {
+				String randNum = mathRan(6);
+				
+				//세션에 난수값 추가. 세션 제한시간 5분
+				session.setAttribute("searchIdRandNum", randNum);
+				session.setMaxInactiveInterval(60*5);
+				logger.debug("session save >>> OK");
+				
+				String content = searchIdContentFront + randNum + searchIdContentEnd;
+				logger.debug("content >>> {}", content);
+				mail(joinTitle, content, email);
+				logger.debug("mail send >>> OK");
+				return 0;
+			}else {
+				logger.debug("email check >>> duplication");
+				return -1;
+			}
+		} catch (Exception e) {
+			logger.debug("email test exception catch");
+			return -2;
+		}
 	}
 	
 	/**
