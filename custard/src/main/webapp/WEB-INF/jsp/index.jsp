@@ -129,11 +129,13 @@ function searchId(){
 			}
 		},
 		beforeSend : function(){
+			//ajax처리 전 버튼 변경 및 wrap 처리
 			$('#btnSearchIdMail').addClass('display-none');
 			$('#mailSendLoading').removeClass('display-none');
 			$('.wrap-loading').removeClass('display-none');
 		},
 		complete : function(){
+			//ajax처리 후 버튼 복구 및 warp 제거
 			$('#btnSearchIdMail').removeClass('display-none');
 			$('#mailSendLoading').addClass('display-none');
 			$('.wrap-loading').addClass('display-none');
@@ -280,6 +282,7 @@ function setCookie(cookieName, value, exdays){
 							<div class="modalStyle col-xs-12" style="margin: 0px 0px 10px 0px;">
 								<div class="modalStyle col-lg-10 col-md-10 col-xs-9"><input name="searchIdEmail" id="searchIdEmail" class="form-control"></div>
 								<div class="modalStyle col-lg-2 col-md-2 col-xs-3">
+								<!-- 메일 발송도중 버튼 변경처리 -->
 									<button id="btnSearchIdMail" type="button" class="btn btn-info">메일발송</button>
 									<button id="mailSendLoading" class="btn display-none">발송중</button>
 								</div>
