@@ -122,7 +122,7 @@ public class MemberService {
 	}
 	
 	/**
-	 * 이메일 확인
+	 * 회원가입 이메일 확인
 	 * @param String email
 	 * @return 0: 성공 || -1: 중복, -2: 오류
 	 */
@@ -134,25 +134,24 @@ public class MemberService {
 			MemberDto emailTest = modelMapper.map(memberRepo.findByEmail(email), MemberDto.class);
 			logger.debug("email test >>> {}", emailTest);
 			if(emailTest != null) {
-				String randNum = mathRan(6);
-				
-				//세션에 난수값 추가. 세션 제한시간 5분
-				session.setAttribute("searchIdRandNum", randNum);
-				session.setMaxInactiveInterval(60*5);
-				logger.debug("session save >>> OK");
-				
-				String content = searchIdContentFront + randNum + searchIdContentEnd;
-				logger.debug("content >>> {}", content);
-				mail(joinTitle, content, email);
-				logger.debug("mail send >>> OK");
-				return 0;
-			}else {
 				logger.debug("email check >>> duplication");
 				return -1;
+			}else {
+				return -2;
 			}
 		} catch (Exception e) {
-			logger.debug("email test exception catch");
-			return -2;
+			String randNum = mathRan(6);
+			
+			//세션에 난수값 추가. 세션 제한시간 5분
+			session.setAttribute("searchIdRandNum", randNum);
+			session.setMaxInactiveInterval(60*5);
+			logger.debug("session save >>> OK");
+			
+			String content = searchIdContentFront + randNum + searchIdContentEnd;
+			logger.debug("content >>> {}", content);
+			mail(joinTitle, content, email);
+			logger.debug("mail send >>> OK");
+			return 0;
 		}
 	}
 	
@@ -258,7 +257,7 @@ public class MemberService {
 	}
 	
 	/**
-	 * 이메일 입력
+	 * 회원정보수정 이메일 입력
 	 * @param String email
 	 * @return 0: 정상처리 || -1: 없는 이메일 || -2: 에러 발생
 	 */
@@ -460,7 +459,7 @@ public class MemberService {
 		prop.put("mail.smtp.ssl.enable", "true");
 		prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 		
-		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+		Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(adminmail, adminpass);
 			}
