@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,20 +14,41 @@
 
 
 <style type="text/css">
-.display-none {
-	display: none;
-}
 #joinForm {
 	background-color: rgb(242, 245, 247);
 	border: 5px solid rgb(255, 255, 255);
 	border-radius: 15px;
 	position: relative;
 }
+.wrap-loading {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.2);
+}
+/* 로딩 이미지 */
+.wrap-loading div {
+	position: fixed;
+	top:50%;
+	left:50%;
+	margin-left: -100px;
+	margin-top: -100px;
+}
+/* 기본적으로 감출때 사용 */
+.display-none {
+	display: none;
+}
 </style>
 
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$("#btnEmailCode").on('click', function(){
+		emailCode();
+	});
 	
 	$("#btnJoin").on('click', function(){
 		var bwf = document.joinForm;
@@ -125,6 +146,87 @@ $(document).ready(function(){
 		location.href='/'
 	});
 });
+
+function emailCode(){
+	//이메일을 입력받고 코드 발송
+	var email = $("#email").val();
+	if(email.length == 0){
+		alert("이메일을 입력하세요");
+		$("#email").focus();
+		return;
+	} else if(email.indexOf("@") == -1 || email.indexOf(".") == -1){
+		alert("이메일을 형식에 맞게 입력하세요");
+		$("#email").focus();
+		return;
+	}
+	//email주소로 난수값 발송
+	$.ajax({
+		url : '<c:url value="/member/joinCode" />',
+		type : "POST",
+		data : {
+			'email' : email
+		},
+		success : function(result){
+			if(result == -1){
+				alert("이미 가입된 이메일입니다.\n메일주소를 확인해주세요.");
+				return;
+			}else{
+				alert("메일로 코드가 발송되었습니다.\n코드는 5분간 유효합니다.");
+				return;
+			}
+		},
+		beforeSend : function(){
+			//ajax처리 전 버튼 변경 및 wrap 처리
+			$('.wrap-loading').removeClass('display-none');
+		},
+		complete : function(){
+			//ajax처리 후 버튼 복구 및 warp 제거
+			$('.wrap-loading').addClass('display-none');
+			
+			$('#btnCode').removeClass('display-none');
+			$('#btnCodeDummy').addClass('display-none');
+		}
+	});
+}
+
+function codeTest(){
+	var code = $("#code").val();
+	if(code.length == 0){
+		alert("코드를 입력하세요");
+		$("#code").focus();
+		return;
+	}
+	
+	//코드값 확인
+	$.ajax({
+		url : '<c:url value="/member/joinCodeTest" />',
+		type : "POST",
+		data : {
+			'code' : code
+		},
+		success : function(result){
+			if(result == -1){
+				alert("잘못된 코드입니다.\n코드를 확인해주세요.");
+				return;
+			}else{
+				alert("코드가 확인되었습니다.\n가입을 진행해주세요.");
+				return;
+			}
+		},
+		beforeSend : function(){
+			//ajax처리 전 버튼 변경 및 wrap 처리
+			$('.wrap-loading').removeClass('display-none');
+		},
+		complete : function(){
+			//ajax처리 후 버튼 복구 및 warp 제거
+			$('.wrap-loading').addClass('display-none');
+			$('#email').attr("readonly", true);
+			
+			$('#btnJoin').removeClass('display-none');
+			$('#btnJoinDummy').addClass('display-none');
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -161,13 +263,22 @@ $(document).ready(function(){
 							<td>
 								<div class="col-xs-12" style="padding:0px;">
 									<div class="col-lg-10 col-md-10 col-xs-10" style="padding:0px;"><input class="form-control" type="text" id="email" name="email" maxlength="45"></div>
-									<div class="col-lg-2 col-md-2 col-xs-2" style="padding:0px;"><button class="btn btn-info" style="margin-left:5px;">발송</button></div>
+									<div class="col-lg-2 col-md-2 col-xs-2" style="padding:0px;">
+										<button id="btnEmailCode" type="button" class="btn btn-info" style="margin-left:5px;">발송</button>
+										<button id="btnEmailCodeDummy" type="button" class="btn display-none" style="margin-left:5px;">발송</button>
+									</div>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td>확인코드 : </td>
-							<td><input class="form-control" type="text" id="code" name="code" maxlength="45"></td>
+							<td>
+								<div class="col-lg-10 col-md-10 col-xs-10" style="padding:0px;"><input class="form-control" type="text" id="code" name="code" maxlength="45"></div>
+								<div class="col-lg-2 col-md-2 col-xs-2" style="padding:0px;">
+									<button id="btnCode" type="button" class="btn btn-success display-none" style="margin-left:5px;">확인</button>
+									<button id="btnCodeDummy" type="button" class="btn" style="margin-left:5px;">확인</button>
+								</div>
+							</td>
 						</tr>
 					</table>
 				</form>
@@ -179,6 +290,9 @@ $(document).ready(function(){
 			</div>
 			<div class="col-lg-3 col-md-2 col-xs-1">
 			</div>
+		</div>
+		<div class="wrap-loading display-none">
+			<div><img src="/static/img/loading.gif"></div>
 		</div>
 	</div>
 </body>
