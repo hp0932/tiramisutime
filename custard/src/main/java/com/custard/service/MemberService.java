@@ -156,6 +156,23 @@ public class MemberService {
 	}
 	
 	/**
+	 * 회원가입 코드확인
+	 * @param request String code
+	 * @param session String seCode
+	 * @return 0: 정상처리 || -1: 코드가 일치하지 않음
+	 */
+	public int setJoinCode(HttpServletRequest request, @RequestParam Map params, HttpSession session) {
+		String seCode = session.getAttribute("searchIdRandNum").toString();
+		String code = request.getParameter("code");
+		
+		if(seCode.equals(code)) {
+			return 0;
+		}else {
+			return -1;
+		}
+	}
+	
+	/**
 	 * 비밀번호 확인
 	 * @param String password
 	 * @param session String userId
