@@ -50,6 +50,10 @@ $(document).ready(function(){
 		emailCode();
 	});
 	
+	$("#btnCode").on('click', function(){
+		codeTest();
+	});
+	
 	$("#btnJoin").on('click', function(){
 		var bwf = document.joinForm;
 		
@@ -147,6 +151,7 @@ $(document).ready(function(){
 	});
 });
 
+//이메일 코드발송
 function emailCode(){
 	//이메일을 입력받고 코드 발송
 	var email = $("#email").val();
@@ -189,6 +194,7 @@ function emailCode(){
 	});
 }
 
+//발송된 코드를 확인
 function codeTest(){
 	var code = $("#code").val();
 	if(code.length == 0){

@@ -58,6 +58,20 @@ public class MemberController {
 	}
 	
 	/**
+	 * 회원가입 코드 확인
+	 * @param request
+	 * @param params
+	 * @param map
+	 * @param session
+	 * @return 0: 성공 || -1: 중복, -2: 오류
+	 */
+	@ResponseBody
+	@RequestMapping(value = "joinCodeTest", method = RequestMethod.POST)
+	public int setJoinCode(HttpServletRequest request, @RequestParam Map params, ModelMap map, HttpSession session) {
+		return memberService.setJoinCode(request, params, session);
+	}
+	
+	/**
 	 * 회원가입
 	 * @param request
 	 * @param params
