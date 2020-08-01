@@ -72,6 +72,7 @@ $(document).ready(function(){
 	});
 	/* 메인메뉴 */
 	
+	/* 메인메뉴 내부이벤트 */
 	//아이디찾기 메일발송
 	$('#btnSearchIdMail').click(function(){
 		searchId();
@@ -81,6 +82,7 @@ $(document).ready(function(){
 	$('#btnSearchIdCode').click(function(){
 		searchIdCode();
 	});
+	/* 메인메뉴 내부이벤트 */
 	
 	//에러 테스트
 	if("${error}" != null){
@@ -155,6 +157,7 @@ function searchIdCode(){
 	data.attr('method','POST');
 	data.attr('action', "<c:url value='/member/searchIdCode'/>");
 	
+	//input 2개 추가
 	data.append($('<input/>', {type: 'hidden', name: 'code', value: code}));
 	data.append($('<input/>', {type: 'hidden', name: 'email', value: email}));
 	data.submit();
