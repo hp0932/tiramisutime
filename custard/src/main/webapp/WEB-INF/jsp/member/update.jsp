@@ -26,9 +26,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
+	//가입버튼 클릭시
 	$("#btnJoin").on('click', function(){
 		var data = $("#joinForm");
 		
+		//비밀번호 확인
 		var password = $("#password").val();
 		if(password.length == 0){
 			alert("비밀번호를 입력하세요");
@@ -39,6 +41,7 @@ $(document).ready(function(){
 			$("#password").focus();
 			return;
 		}
+		//비밀번호확인 확인
 		var passwordRe = $("#passwordRe").val();
 		if(passwordRe.length == 0){
 			alert("비밀번호확인을 입력하세요");
@@ -55,6 +58,8 @@ $(document).ready(function(){
 			document.getElementById('passwordRe').focus();
 			return;
 		}
+		
+		//닉네임 확인
 		var name = $("#name").val();
 		if(name.length == 0){
 			alert("닉네임을 입력하세요");
@@ -65,6 +70,8 @@ $(document).ready(function(){
 			$("#name").focus();
 			return;
 		}
+		
+		//이메일 확인
 		var email = $("#email").val();
 		if(email.length == 0){
 			alert("이메일을 입력하세요");

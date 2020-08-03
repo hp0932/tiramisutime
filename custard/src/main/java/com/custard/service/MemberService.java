@@ -144,6 +144,7 @@ public class MemberService {
 			
 			//세션에 난수값 추가. 세션 제한시간 5분
 			session.setAttribute("searchIdRandNum", randNum);
+			session.setAttribute("email", email);
 			session.setMaxInactiveInterval(60*5);
 			logger.debug("session save >>> OK");
 			

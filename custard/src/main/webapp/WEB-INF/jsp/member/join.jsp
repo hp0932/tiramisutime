@@ -197,6 +197,7 @@ function emailCode(){
 //발송된 코드를 확인
 function codeTest(){
 	var code = $("#code").val();
+	var email = $("#email").val();
 	if(code.length == 0){
 		alert("코드를 입력하세요");
 		$("#code").focus();
@@ -208,7 +209,8 @@ function codeTest(){
 		url : '<c:url value="/member/joinCodeTest" />',
 		type : "POST",
 		data : {
-			'code' : code
+			'code' : code,
+			'email' : email
 		},
 		success : function(result){
 			if(result == -1){
@@ -226,7 +228,6 @@ function codeTest(){
 		complete : function(){
 			//ajax처리 후 버튼 복구 및 warp 제거
 			$('.wrap-loading').addClass('display-none');
-			$('#email').attr("readonly", true);
 			
 			$('#btnJoin').removeClass('display-none');
 			$('#btnJoinDummy').addClass('display-none');
