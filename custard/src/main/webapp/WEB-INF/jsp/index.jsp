@@ -40,7 +40,7 @@
 	
 <script type="text/javascript" charset="UTF-8">
 $(document).ready(function(){
-	/* 메인메뉴 */
+	/* ----- 메인메뉴 ----- */
 	//자유게시판
 	$('#freeBoard').click(function(){
 		location.href='/board/list'
@@ -70,9 +70,9 @@ $(document).ready(function(){
 	$('#downloader').click(function(){
 		location.href='/fileview/downloader'
 	});
-	/* 메인메뉴 */
+	/* ----- 메인메뉴 ----- */
 	
-	/* 메인메뉴 내부이벤트 */
+	/* ----- 메인메뉴 내부이벤트 ----- */
 	//아이디찾기 메일발송
 	$('#btnSearchIdMail').click(function(){
 		searchId();
@@ -82,7 +82,7 @@ $(document).ready(function(){
 	$('#btnSearchIdCode').click(function(){
 		searchIdCode();
 	});
-	/* 메인메뉴 내부이벤트 */
+	/* ----- 메인메뉴 내부이벤트 ----- */
 	
 	//에러 테스트
 	if("${error}" != null){
@@ -334,7 +334,7 @@ function setCookie(cookieName, value, exdays){
 			</div>
 		</div>
 	</c:if>
-	<!-- 시계 -->
+	<!-- 한국시간 -->
 	<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
 		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
 			<h1 class="clocker" id="clock1txt"></h1>
