@@ -41,6 +41,7 @@ public class FileShareService {
 	public Map getFileList(String path, String folder) {
 		HashMap result = new HashMap();
 		String userRoute = ROUTE;
+		//폴더경로 없을경우 기본경로 || 있을경우 해당경로
 		if (!path.equals("")) {
 			userRoute = userRoute + "/" + path;
 		}
