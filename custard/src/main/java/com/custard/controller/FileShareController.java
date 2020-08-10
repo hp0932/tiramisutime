@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.custard.service.FileShareService;
 import com.custard.service.FileviewService;
 
 @Controller
@@ -26,7 +27,7 @@ public class FileShareController {
 	private static final Logger logger = LoggerFactory.getLogger(FileShareController.class);
 	
 	@Autowired
-	private FileviewService fileviewService;
+	private FileShareService fileshareService;
 
 	/**
 	 * 파일 다운로더 페이지 로드
@@ -47,7 +48,7 @@ public class FileShareController {
 			//폴더값이 없을때 첫로드
 			if(folder == null) {
 				folder = "";
-				logger.debug("fileview first load");
+				logger.debug("fileshare first load");
 			}else {
 				//폴더값이 있다면 폴더값 출력
 				logger.debug("select folder >>> {}", folder);
@@ -57,11 +58,11 @@ public class FileShareController {
 				path = "";
 			}
 			
-			Map data = fileviewService.getFileList(path, folder);
+			Map data = fileshareService.getFileList(path, folder);
 			
 			map.addAttribute("data", data);
 			
-			return "fileview/downloader";
+			return "fileshare/share";
 		}
 	}
 	
@@ -77,9 +78,9 @@ public class FileShareController {
 	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String setFile(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session, MultipartHttpServletRequest mpfRequest) {
-		fileviewService.setFile(mpfRequest.getFiles("attachFile"));
+		fileshareService.setFile(mpfRequest.getFiles("attachFile"));
 		
-		return "redirect:/fileshare/downloader";
+		return "redirect:/fileshare/share";
 	}
 	
 	/**
@@ -92,7 +93,7 @@ public class FileShareController {
 	@RequestMapping(value = "/count", method = RequestMethod.POST)
 	public int getFilesCount(HttpServletRequest request, HttpServletResponse response) {
 		String folderName = request.getParameter("folderName");
-		int count = fileviewService.getFilesCount(request, response, folderName);
+		int count = fileshareService.getFilesCount(request, response, folderName);
 		
 		return count;
 	}
@@ -107,7 +108,7 @@ public class FileShareController {
 		String folderName = request.getParameter("folderName");
 		String count = request.getParameter("count");
 		logger.debug("folder & count >>> {} / {}", folderName, count);
-		fileviewService.getFiles(request, response, folderName, Integer.parseInt(count));
+		fileshareService.getFiles(request, response, folderName, Integer.parseInt(count));
 	}
 	
 	/**
@@ -118,7 +119,7 @@ public class FileShareController {
 	@RequestMapping(value = "/download", method = RequestMethod.POST)
 	public void getFile(HttpServletRequest request, HttpServletResponse response) {
 		String fileName = request.getParameter("fileName");
-		fileviewService.getFile(request, response, fileName);
+		fileshareService.getFile(request, response, fileName);
 	}
 	
 	/**
@@ -129,8 +130,8 @@ public class FileShareController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deleteFile(HttpServletRequest request, HttpServletResponse response) {
-		fileviewService.deleteFile(request, response);
+		fileshareService.deleteFile(request, response);
 		
-		return "redirect:/fileshare/downloader";
+		return "redirect:/fileshare/share";
 	}
 }
