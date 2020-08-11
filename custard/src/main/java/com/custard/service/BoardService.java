@@ -50,13 +50,17 @@ public class BoardService {
 		//검색어가 존재할 경우
 		if(params.get("searchContent") != null) {
 			HashMap boardList = new HashMap();
+			
+			//검색어 준비
 			String search = params.get("searchContent").toString();
 			search = "%" + search + "%";
 			
+			//검색쿼리 실행
 			logger.debug("search content >>> {}", search);
 			content = boardRepo.findByTitleLikeOrderByIdDesc(search);
 			logger.debug("seacrh list >>> {}", content);
 			
+			//페이징 처리
 			int count = content.size();
 			int pageCount = count/PAGE_SIZE;
 			int nowPage = request.getParameter("nowPage") == null ? 1 : Integer.parseInt(request.getParameter("nowPage").toString());
