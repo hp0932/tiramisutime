@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.custard.service.FileShareService;
-import com.custard.service.FileviewService;
 
 @Controller
 @RequestMapping(value = "/fileshare",  method = RequestMethod.GET)
@@ -107,6 +106,8 @@ public class FileShareController {
 	public void getFiles(HttpServletRequest request, HttpServletResponse response) {
 		String folderName = request.getParameter("folderName");
 		String count = request.getParameter("count");
+		
+		//폴더명과 현재 다운로드 count를 넣어서 다중다운로드 실행
 		logger.debug("folder & count >>> {} / {}", folderName, count);
 		fileshareService.getFiles(request, response, folderName, Integer.parseInt(count));
 	}
