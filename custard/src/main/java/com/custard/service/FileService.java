@@ -58,6 +58,8 @@ public class FileService {
 			String saveName = UUID.randomUUID().toString();
 			logger.debug("name : {} / size : {}", fileName, fileSize);
 			logger.debug("file save name : {}", saveName);
+			
+			//파일정보 DB 저장
 			fileRepo.save(putSaveDto(fileThread, fileName, saveName, fileSize, fileUploader).toEntity());
 			try {
 				file.transferTo(new File(ROUTE + saveName));
