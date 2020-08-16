@@ -35,7 +35,7 @@ public class FileShareController {
 	 * @param map
 	 * @return 파일 다운로더 페이지
 	 */
-	@RequestMapping(value = "/share", method = RequestMethod.POST)
+	@RequestMapping(value = "/share", method = RequestMethod.GET)
 	public String goDownloadPage(HttpServletRequest request, @RequestParam Map params, ModelMap map, HttpSession session) {
 		
 		if(session.getAttribute("level") == null || session.getAttribute("level").equals("1")) {
@@ -61,7 +61,7 @@ public class FileShareController {
 			
 			map.addAttribute("data", data);
 			
-			return "fileshare/share";
+			return "fileShare/share";
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class FileShareController {
 	public String setFile(HttpServletRequest request, @RequestParam Map params,  ModelMap map, HttpSession session, MultipartHttpServletRequest mpfRequest) {
 		fileshareService.setFile(mpfRequest.getFiles("attachFile"));
 		
-		return "redirect:/fileshare/share";
+		return "redirect:/fileShare/share";
 	}
 	
 	/**
@@ -133,6 +133,6 @@ public class FileShareController {
 	public String deleteFile(HttpServletRequest request, HttpServletResponse response) {
 		fileshareService.deleteFile(request, response);
 		
-		return "redirect:/fileshare/share";
+		return "redirect:/fileShare/share";
 	}
 }
