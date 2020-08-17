@@ -16,7 +16,7 @@ $(document).ready(function(){
 	 	var data = $($(this).parents('form'));
 	 	
 	 	data.attr('method','POST');
-	 	data.attr('action',"<c:url value='/fileview/upload'/>");
+	 	data.attr('action',"<c:url value='/fileshare/upload'/>");
 	 	data.submit();
 	});
 });
@@ -39,7 +39,7 @@ function download(fileName){
 	$('.container').append(data);
 	data.attr('name', 'folderForm');
 	data.attr('method','POST');
-	data.attr('action', "<c:url value='/fileview/download'/>");
+	data.attr('action', "<c:url value='/fileshare/download'/>");
 	
 	data.append($('<input/>', {type: 'hidden', name: 'fileName', value: fileName}));
 	data.submit();
@@ -61,7 +61,7 @@ function dirDown(folderName){
 	}
 	//해당 폴더 내부의 파일 갯수가 몇개인지 가져옴(list length)
 	$.ajax({
-		url : "<c:url value='/fileview/count'/>",
+		url : "<c:url value='/fileshare/count'/>",
 		type : "POST",
 		data : {
 			'folderName' : folderName
@@ -81,7 +81,7 @@ function getDir(folderName, count){
 	//count를 곱하여 파일 count*0.5초 지연실행. 0.5/1.0/1.5 순으로...
 	var iv = count * 500;
 	setTimeout(function(){
-		var url = '/fileview/dirDown';
+		var url = '/fileshare/dirDown';
 		//count값으로 name값을 주입하여 iframe 생성, body에 append
 		var frame = $('<iframe name="' + count + '" style="display: none;"></iframe>');
 		frame.appendTo("body");
@@ -121,7 +121,7 @@ function fileDelete(fileName){
 		$('.container').append(data);
 		data.attr('name', 'folderForm');
 		data.attr('method','POST');
-		data.attr('action', "<c:url value='/fileview/delete'/>");
+		data.attr('action', "<c:url value='/fileshare/delete'/>");
 		
 		data.append($('<input/>', {type: 'hidden', name: 'fileName', value: fileName}));
 		data.submit();
@@ -141,7 +141,7 @@ function cdFolder(folder){
 	$('.container').append(data);
 	data.attr('name', 'folderForm');
 	data.attr('method','POST');
-	data.attr('action', "<c:url value='/fileview/downloader'/>");
+	data.attr('action', "<c:url value='/fileshare/downloader'/>");
 	
 	//form을 만들어서 input type hidden형식으로 추가하여 post형식으로 발송
 	data.append($('<input/>', {type: 'hidden', name: 'path', value: path}));
@@ -156,7 +156,7 @@ function goBack(){
 
 //홈으로 버튼
 function goHome(){
-	location.href="/fileview/downloader"
+	location.href="/fileshare/downloader"
 }
 
 </script>
@@ -212,6 +212,12 @@ function goHome(){
 			</c:forEach>
 			<tr><td></td></tr>
 		</table>
+	</div>
+	<div class="col-xs-12 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3; height:44px; background-color:white;">
+		<form enctype="multipart/form-data" style="display:inline;">
+			<label id="fileInputLabel" for="btnFileInput"><input id="btnFileInput" class="btn btn-default" type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/></label>
+			<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>
+		</form>
 	</div>
 </div>
 </body>
