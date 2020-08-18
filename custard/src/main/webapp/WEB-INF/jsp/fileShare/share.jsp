@@ -185,6 +185,7 @@ function goHome(){
 					<td style="padding:0px;">
 						<!-- 폴더 선택 -->
 						<div class="col-xs-10 col-md-11" style="cursor:pointer; padding:5px 15px 5px 15px;" onclick='cdFolder("${result.fileName}")'>
+							<!-- 폴더 진입 -->
 							<span class="glyphicon glyphicon-folder-open" style="font-size:15px;"></span>&nbsp&nbsp<span>${result.fileName}</span>
 						</div>
 						<div class="col-xs-2 col-md-1 text-right" style="padding:4px 15px 3px 0px;">
