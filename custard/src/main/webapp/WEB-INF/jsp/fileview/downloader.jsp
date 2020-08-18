@@ -228,6 +228,7 @@ function goTorrentFolder(){
 	</div>
 	<!-- <div class="col-xs-2" style="padding:5px 0px 0px 0px; z-index:3; height:44px; background-color:white;"><button id="torrentFolder" onclick="goTorrentFolder()" class="btn btn-default">토렌트 업로드 폴더</button></div> -->
 	<div class="col-xs-12 text-right" style="margin:0px; padding:3px 0px 0px 0px; z-index:3; height:44px; background-color:white;">
+		<!-- 파일업로드 폼 -->
 		<form enctype="multipart/form-data" style="display:inline;">
 			<label id="fileInputLabel" for="btnFileInput"><input id="btnFileInput" class="btn btn-default" type="file" id="attachFile" name="attachFile" multiple="multiple" style="display:inline;"/></label>
 			<button id="btnUpTorrent" class="btn btn-success" type="button">파일 업로드</button>
