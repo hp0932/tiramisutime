@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "fileview")
+@Table(name = "fileshare")
 public class FileViewEntity extends TimeEntity{
 	
 	@Id

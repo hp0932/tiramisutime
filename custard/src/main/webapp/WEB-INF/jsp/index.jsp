@@ -70,11 +70,6 @@ $(document).ready(function(){
 	$('#downloader').click(function(){
 		location.href='/fileview/downloader'
 	});
-	
-	//파일 다운로더
-	$('#share').click(function(){
-		location.href='/fileshare/share'
-	});
 	/* ----- 메인메뉴 ----- */
 	
 	/* ----- 메인메뉴 내부이벤트 ----- */
@@ -265,15 +260,6 @@ function setCookie(cookieName, value, exdays){
 			<div id="downloader" class="text-center btnIndexDiv">
 				<span class="glyphicon glyphicon-download" style="font-size:100px;"></span><br>
 				<span class="textIndex text-center">다운로더</span>
-			</div>
-		</div>
-	</c:if>
-	<c:if test="${sessionScope.level eq 2 || sessionScope.level eq 7}">
-	<!-- 파일 공유 : 권한 사용자 및 관리자 -->
-		<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
-			<div id="share" class="text-center btnIndexDiv">
-				<span class="glyphicon glyphicon-download" style="font-size:100px;"></span><br>
-				<span class="textIndex text-center">파일공유</span>
 			</div>
 		</div>
 	</c:if>
