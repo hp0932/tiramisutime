@@ -145,7 +145,6 @@ function searchId(){
 	});
 }
 
-
 //테스트 이후 회원정보변경 페이지로 이동요청
 function searchIdCode(){
 	var code = $("#searchIdCode").val();

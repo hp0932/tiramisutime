@@ -264,14 +264,29 @@ public class FileShareService {
 	}
 	
 	/**
-	 * 파일 삭제
+	 * 파일 삭제(단건)
 	 * @param String fileName
 	 */
 	public void deleteFile(HttpServletRequest request, HttpServletResponse response) {
 		String fileName = request.getParameter("fileName");
-		logger.debug("select delete file >>> {}", fileName);
+		deleteOneFile(fileName);
+	}
+	
+	/**
+	 * 파일 삭제(다량)
+	 */
+	public void deleteFileList(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
+	
+	/**
+	 * 파일 삭제 실행
+	 * @param String fileName
+	 */
+	public void deleteOneFile(String fileName) {
+		logger.debug("Select Delete File >>> {}", fileName);
 		File file = new File(ROUTE, fileName);
-
+		
 		if (file.exists()) {
 			//파일일 경우
 			if(file.isFile()) {
