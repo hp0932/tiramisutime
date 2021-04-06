@@ -63,7 +63,7 @@ $(document).ready(function(){
 				</tr>
 				<tr>
 					<!-- 내용 -->
-					<td colspan="4" height="300"><div style="white-space:pre;">${data.content}</div></td>
+					<td colspan="4" height="300"><div style="white-space: pre-line;">${data.content}</div></td>
 				</tr>
 				<tr>
 					<td colspan="1">작성일시 :</td>
