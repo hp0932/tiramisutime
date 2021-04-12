@@ -1,9 +1,5 @@
 package com.custard.dto;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
-import com.custard.entity.BoardEntity;
 import com.custard.entity.FileBoardEntity;
 
 import lombok.Builder;
