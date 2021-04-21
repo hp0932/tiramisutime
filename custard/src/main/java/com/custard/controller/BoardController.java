@@ -38,7 +38,7 @@ public class BoardController {
 	 * @return 게시판 목록 페이지
 	 */
 	@RequestMapping(value = "list",  method = RequestMethod.GET)
-	public String getBoardList(HttpServletRequest request, @RequestParam Map params,  ModelMap map) {
+	public String getBoardList(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
 		
 		Map data = boardService.getBoardList(request, params);
 		
