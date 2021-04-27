@@ -36,12 +36,11 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "/",  method = RequestMethod.GET)
 	public String goIndex(HttpServletRequest request, @RequestParam Map params, ModelMap map) {
-		indexService.getIndexVisiter();
 		
 		int visiters = indexService.getIndexVisiter();
 		
 		map.addAttribute("visiters", visiters);
-
+		logger.debug("index visiters return >>> {}", visiters);
 		logger.debug(first);
 		return "index";
 	}

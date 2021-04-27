@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.custard.entity.RedisIndexEntity;
 
-public interface RedisIndexRepository extends CrudRepository<RedisIndexEntity, Long> {
-	public RedisIndexEntity findByName(String name);
+public interface RedisIndexRepository extends CrudRepository<RedisIndexEntity, String> {
+	
 }

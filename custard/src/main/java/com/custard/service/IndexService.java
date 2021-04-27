@@ -1,5 +1,7 @@
 package com.custard.service;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,27 +33,44 @@ public class IndexService {
 	public int getIndexVisiter() {
 		
 		RedisIndexDto dto = new RedisIndexDto();
-
+		RedisIndexEntity redisIndexEntity;
+		
+		boolean indexFisrtTest = redisIndexRepo.existsById("visiters");
+		
+		logger.debug("index first load test >>> {}", indexFisrtTest);
+		
 		//visiter값 없을경우 set 1
-		try {
-			redisIndexRepo.findByName("visiters");
-		} catch (Exception e) {
-			dto.setName("visiters");
+		if(indexFisrtTest) {
+			//visiters 값이 있을 경우 가져옴
+			redisIndexEntity = redisIndexRepo.findById("visiters").get();
+			dto = modelMapper.map(redisIndexEntity, RedisIndexDto.class);
+			logger.debug("visiters load test >>> {} / {}", dto.getId(), dto.getVisiters());
+		}else {
+			//visiters 값이 없을 경우 visiters에 1을 투입
+			logger.debug("[CATCH]index visiter first load");
+			dto.setId("visiters");
 			dto.setVisiters(1);
+			redisIndexRepo.save(dto.toEntity());
+			logger.debug("[CATCH]index visiter first save");
 		}
+
 		
 		//visiters read
-		RedisIndexEntity redisIndexEntity = redisIndexRepo.findByName("visiters");
-		dto = modelMapper.map(redisIndexEntity, RedisIndexDto.class);
+		redisIndexEntity = redisIndexRepo.findById("visiters").get();
+		//dto = modelMapper.map(redisIndexEntity, RedisIndexDto.class);
 		
-		String name = dto.getName();
+		String id = dto.getId();
 		int visiters = dto.getVisiters();
+		
+		logger.debug("redis id >>> {} / redis visiters >>> {} ", id, visiters);
 		
 		//visiters +1
 		visiters = visiters + 1;
 		
-		dto.setName(name);
+		dto.setId(id);
 		dto.setVisiters(visiters);
+		
+		logger.debug("redis id >>> {} / redis visiters >>> {} ", id, visiters);
 		
 		//visiters write
 		redisIndexRepo.save(dto.toEntity());

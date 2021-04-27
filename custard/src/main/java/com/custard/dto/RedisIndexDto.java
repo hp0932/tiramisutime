@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class RedisIndexDto {
 	
-	private Long id;
+	private String id;
 	
 	private String name;
 	
@@ -30,7 +30,7 @@ public class RedisIndexDto {
 	}
 	
 	@Builder
-	public RedisIndexDto (Long id, String name, int visiters) {
+	public RedisIndexDto (String id, String name, int visiters) {
 		this.id = id;
 		this.name = name;
 		this.visiters = visiters;
