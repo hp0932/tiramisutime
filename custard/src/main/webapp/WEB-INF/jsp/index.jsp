@@ -334,6 +334,13 @@ function setCookie(cookieName, value, exdays){
 			</div>
 		</div>
 	</c:if>
+	<!-- 방문자수 -->
+	<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
+		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
+			<h1 class="clocker" id="visiter">방문자수</h1>
+			<h1 class="clocker" id="visiter"><span>${visiters}</span></h1>
+		</div>
+	</div>
 	<!-- 한국시간 -->
 	<div class="btnIndex col-lg-2 col-md-3 col-xs-4">
 		<div id="clockDiv1" class="text-center btnIndexDiv clockDiv">
