@@ -470,6 +470,7 @@ public class MemberService {
 	 * @param String address
 	 */
 	public void mail(String title, String content, String address) {
+		//Username and Password not accepted. Learn more at 535 발생시 구글 계정 >>> 보안 >>> 보안 수준이 낮은 앱의 액세스 사용으로 변경
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");
 		prop.put("mail.smtp.port", 465);
