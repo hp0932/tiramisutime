@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="custard:war">
+    <output-path>$PROJECT_DIR$/custard/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>custard</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="custard-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="custard:war exploded" />
+    </root>
+  </artifact>
+</component>
